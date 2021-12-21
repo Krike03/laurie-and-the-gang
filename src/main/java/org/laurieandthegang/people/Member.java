@@ -22,18 +22,56 @@ public class Member {
     @Embedded
     private PhoneNumber phoneNumber;
 
-    @Embedded
+    @Column(name = "EMAIL")
     private String email;
 
     @Embedded
     private LicensePlate licensePlate;
 
+    @Column(name = "REGISTRATIONDATE")
     private LocalDate registrationDate;
 
     public Member() {
     }
 
+    public int getId() {
+        return id;
+    }
 
+    public Name getName() {
+        return name;
+    }
 
+    public Address getAddress() {
+        return address;
+    }
 
+    public PhoneNumber getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public LicensePlate getLicensePlate() {
+        return licensePlate;
+    }
+
+    public LocalDate getRegistrationDate() {
+        return registrationDate;
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id: " + id +
+                ", name: " + name +
+                ", address: " + address +
+                ", phoneNumber: " + phoneNumber +
+                ", email: " + email + '\'' +
+                ", licensePlate: " + licensePlate +
+                ", registrationDate: " + registrationDate +
+                '}';
+    }
 }
