@@ -62,6 +62,16 @@ public class Member {
         return registrationDate;
     }
 
+    public Member( Name name, Address address, String phoneNumber, String email, LicensePlate licensePlate) {
+//        this.id = id;
+        this.name = name;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.licensePlate = licensePlate;
+        this.registrationDate = LocalDate.now(); // todo update based on the link provided in the story
+    }
+
     @Override
     public String toString() {
         return "Member{" +
