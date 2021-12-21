@@ -16,10 +16,18 @@ public class Member {
     @Embedded
     private Name name;
 
+    @Embedded
     private Address address;
+
+    @Embedded
     private PhoneNumber phoneNumber;
+
+    @Embedded
     private String email;
+
+    @Embedded
     private LicensePlate licensePlate;
+
     private LocalDate registrationDate;
 
     public Member() {

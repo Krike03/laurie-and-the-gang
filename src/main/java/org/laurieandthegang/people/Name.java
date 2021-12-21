@@ -11,7 +11,7 @@ public class Name {
     @Column(name = "LASTNAME")
     private String lastName;
 
-    public Name() {
+    private Name() {
     }
 
     public String getFirstName() {
@@ -24,6 +24,6 @@ public class Name {
 
     @Override
     public String toString() {
-        return firstName + lastName;
+        return firstName + " " + lastName;
     }
 }
