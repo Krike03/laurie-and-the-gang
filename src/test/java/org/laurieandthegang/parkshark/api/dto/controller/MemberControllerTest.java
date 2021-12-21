@@ -63,7 +63,7 @@ class MemberControllerTest {
     }
 
     @Test
-    void givenMemberToCreate_whenRegisteringMembeIncorrectly_thenThrowError() {
+    void givenMemberToCreate_whenRegisteringMemberIncorrectly_thenThrowError() {
         CreateMemberDto createMemberDto = new CreateMemberDto(null, null, null, null, null);
 
         RestAssured
@@ -71,14 +71,12 @@ class MemberControllerTest {
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
-//                .header()
                 .when()
                 .port(port)
                 .post("/members")
                 .then()
                 .assertThat()
                 .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-
 
     }
 }
