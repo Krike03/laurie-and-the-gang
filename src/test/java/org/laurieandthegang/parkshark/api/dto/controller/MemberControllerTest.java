@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.context.ActiveProfiles;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static io.restassured.http.ContentType.JSON;
@@ -21,6 +22,7 @@ import static io.restassured.http.ContentType.JSON;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ActiveProfiles("test")
 class MemberControllerTest {
 
     @Value("${server.port}")
@@ -62,7 +64,6 @@ class MemberControllerTest {
 
     @Test
     void givenMemberToCreate_whenRegisteringMembeIncorrectly_thenThrowError() {
-        Name name = new Name("", "");
         CreateMemberDto createMemberDto = new CreateMemberDto(null, null, null, null, null);
 
         RestAssured
@@ -76,7 +77,8 @@ class MemberControllerTest {
                 .post("/members")
                 .then()
                 .assertThat()
-                .statusCode(HttpStatus.BAD_REQUEST.value());
+                .statusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+
 
     }
 }
