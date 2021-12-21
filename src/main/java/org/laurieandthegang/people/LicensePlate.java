@@ -8,10 +8,10 @@ import javax.persistence.Id;
 public class LicensePlate {
 
     @Id
-    @Column(name = "LICENSENUMBER")
+    @Column(name = "LICENSE_NUMBER")
     private String licenseNumber;
 
-    @Column(name = "COUNTRYLABEL")
+    @Column(name = "COUNTRY_LABEL")
     private String countryLabel;
 
     public LicensePlate() {

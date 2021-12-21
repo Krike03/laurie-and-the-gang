@@ -5,10 +5,10 @@ import javax.persistence.Embeddable;
 
 @Embeddable
 public class Name {
-    @Column(name = "FIRSTNAME")
+    @Column(name = "FIRST_NAME")
     private String firstName;
 
-    @Column(name = "LASTNAME")
+    @Column(name = "LAST_NAME")
     private String lastName;
 
     private Name() {

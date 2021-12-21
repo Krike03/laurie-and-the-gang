@@ -5,15 +5,15 @@ import javax.persistence.*;
 @Embeddable
 public class Address {
 
-    @Column(name = "STREETNAME")
+    @Column(name = "STREET_NAME")
     private String streetName;
 
-    @Column(name = "STREETNUMBER")
+    @Column(name = "STREET_NUMBER")
     private String streetNumber; //could be 11A
 
 
     @ManyToOne
-    @JoinColumn(name = "NUMERALCODE") // should be the same as PostalCode.java id
+    @JoinColumn(name = "NUMERAL_CODE") // should be the same as PostalCode.java id
     private PostalCode postalCode; // could be 9000B
 
 

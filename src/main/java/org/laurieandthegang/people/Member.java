@@ -9,8 +9,8 @@ public class Member {
 
     //todo update the name, sequence name and generator name
     @Id
-    @SequenceGenerator(name = "NAME", sequenceName = "SEQ IDK", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "NAME_SEQ")
+    @SequenceGenerator(name = "MEMBER_SEQ", sequenceName = "member_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "MEMBER_SEQ")
     private int id;
 
     @Embedded
@@ -19,8 +19,8 @@ public class Member {
     @Embedded
     private Address address;
 
-    @Embedded
-    private PhoneNumber phoneNumber;
+    @Column(name = "PHONE_NUMBER")
+    private String phoneNumber;
 
     @Column(name = "EMAIL")
     private String email;
@@ -28,7 +28,7 @@ public class Member {
     @Embedded
     private LicensePlate licensePlate;
 
-    @Column(name = "REGISTRATIONDATE")
+    @Column(name = "REGISTRATION_DATE")
     private LocalDate registrationDate;
 
     public Member() {
@@ -46,7 +46,7 @@ public class Member {
         return address;
     }
 
-    public PhoneNumber getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 

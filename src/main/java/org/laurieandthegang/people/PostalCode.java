@@ -9,10 +9,10 @@ import javax.persistence.Table;
 @Table(name = "POSTALCODE")
 public class PostalCode {
     @Id
-    @Column(name = "NUMERALCODE")
+    @Column(name = "NUMERAL_CODE")
     private String numeralCode;
 
-    @Column(name = "CITYLABEL")
+    @Column(name = "CITY_LABEL")
     private String cityLabel;
 
     public PostalCode() {
