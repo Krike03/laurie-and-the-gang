@@ -59,4 +59,24 @@ class MemberControllerTest {
         assertThat(memberDto.email()).isEqualTo(createMemberDto.email());
         assertThat(memberDto.licensePlate()).isEqualTo(createMemberDto.licensePlate());
     }
+
+    @Test
+    void givenMemberToCreate_whenRegisteringMembeIncorrectly_thenThrowError() {
+        Name name = new Name("", "");
+        CreateMemberDto createMemberDto = new CreateMemberDto(null, null, null, null, null);
+
+        RestAssured
+                .given()
+                .body(createMemberDto)
+                .accept(JSON)
+                .contentType(JSON)
+//                .header()
+                .when()
+                .port(port)
+                .post("/members")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.BAD_REQUEST.value());
+
+    }
 }
