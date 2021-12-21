@@ -13,7 +13,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="laurie-and-the-gang" options="-parameters --add-modules java.base" />
+      <module name="laurie-and-the-gang" options="-parameters" />
       <module name="parkshark" options="-parameters" />
     </option>
   </component>

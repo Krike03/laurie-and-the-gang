@@ -2,11 +2,9 @@ package org.laurieandthegang.parkshark.api.dto.controller;
 
 import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
 import org.laurieandthegang.parkshark.api.dto.MemberDto;
-import org.laurieandthegang.parkshark.domain.people.Member;
 import org.laurieandthegang.parkshark.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
