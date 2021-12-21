@@ -1,4 +1,4 @@
-package org.laurieandthegang.people;
+package org.laurieandthegang.parkshark.domain.people;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
