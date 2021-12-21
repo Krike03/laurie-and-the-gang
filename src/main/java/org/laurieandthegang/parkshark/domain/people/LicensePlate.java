@@ -7,7 +7,7 @@ import javax.persistence.Id;
 @Embeddable
 public class LicensePlate {
 
-    @Id
+
     @Column(name = "LICENSE_NUMBER")
     private String licenseNumber;
 

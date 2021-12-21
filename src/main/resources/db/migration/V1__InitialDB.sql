@@ -1,6 +1,6 @@
 create sequence member_seq start with 1 increment by 1;
 create table member (
-    id integer primary key,
+    id integer primary key default nextval('member_seq'),
     first_name varchar(255) not null,
     last_name varchar(255) not null,
     street_name varchar(255),
