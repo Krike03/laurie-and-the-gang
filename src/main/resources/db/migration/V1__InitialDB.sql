@@ -1,4 +1,4 @@
-create sequence member_seq start with 1 increment by 1;
+create sequence IF NOT EXISTS member_seq start with 1 increment by 1;
 create table member (
     id integer primary key default nextval('member_seq'),
     first_name varchar(255) not null,

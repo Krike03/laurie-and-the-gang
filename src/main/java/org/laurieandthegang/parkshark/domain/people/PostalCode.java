@@ -1,21 +1,23 @@
 package org.laurieandthegang.parkshark.domain.people;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.Objects;
 
-@Entity
-@Table(name = "POSTALCODE")
+@Embeddable
 public class PostalCode {
-    @Id
+
     @Column(name = "NUMERAL_CODE")
     private String numeralCode;
 
     @Column(name = "CITY_LABEL")
     private String cityLabel;
 
-    public PostalCode() {
+    private PostalCode() {
+    }
+
+    public PostalCode(String numeralCode, String cityLabel) {
+        this.numeralCode = numeralCode;
+        this.cityLabel = cityLabel;
     }
 
     public String getNumeralCode() {
@@ -29,5 +31,17 @@ public class PostalCode {
     @Override
     public String toString() {
         return numeralCode + " " + cityLabel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PostalCode that)) return false;
+        return Objects.equals(numeralCode, that.numeralCode) && Objects.equals(cityLabel, that.cityLabel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(numeralCode, cityLabel);
     }
 }
