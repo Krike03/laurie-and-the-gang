@@ -5,6 +5,7 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.laurieandthegang.parkshark.api.dto.CreateParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.ParkingLotDto;
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
 import org.laurieandthegang.parkshark.domain.people.Address;
