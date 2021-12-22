@@ -1,15 +1,12 @@
 package org.laurieandthegang.parkshark.api.controller;
 
-import org.laurieandthegang.parkshark.api.dto.CreateDivisionDTO;
+import org.laurieandthegang.parkshark.api.dto.CreateDivisionDto;
 import org.laurieandthegang.parkshark.api.dto.DivisionDto;
 import org.laurieandthegang.parkshark.service.DivisionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -27,7 +24,7 @@ public class DivisionController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public DivisionDto postDivision(@RequestBody CreateDivisionDTO createDivisionDTO){
+    public DivisionDto postDivision(@RequestBody CreateDivisionDto createDivisionDTO){
         logger.info("method call new division");
         return divisionService.addDivision(createDivisionDTO);
     }

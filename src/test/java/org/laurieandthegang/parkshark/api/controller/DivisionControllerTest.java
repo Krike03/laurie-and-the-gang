@@ -5,7 +5,7 @@ import io.restassured.http.ContentType;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.laurieandthegang.parkshark.api.dto.CreateDivisionDTO;
+import org.laurieandthegang.parkshark.api.dto.CreateDivisionDto;
 import org.laurieandthegang.parkshark.api.dto.DivisionDto;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -29,7 +27,7 @@ class DivisionControllerTest {
 
     @Test
     void givenDivisionToCreate_WhenRegisterDivisionCorrectly_thenAddDivision() {
-        CreateDivisionDTO createDivisionDTO = new CreateDivisionDTO("name", "originalName", "director");
+        CreateDivisionDto createDivisionDTO = new CreateDivisionDto("name", "originalName", "director");
 
         DivisionDto divisionDto = RestAssured
                 .given()
