@@ -10,5 +10,6 @@ create table parking_lot
     street_number varchar(255) not null,
     numeral_code varchar(255) not null,
     city_label varchar(255) not null,
-    price_per_hour float not null
+    price_per_hour float not null,
+    CONSTRAINT contact_person foreign key (contact_person) references contact_person(id)
 )

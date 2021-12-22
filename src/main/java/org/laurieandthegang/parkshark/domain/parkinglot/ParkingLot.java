@@ -25,7 +25,7 @@ public class ParkingLot {
     private int capacity;
 
     @ManyToOne
-    @JoinColumn(name = "contact_person_id") // todo to ask the client if its allowed to manage more then 1 parkinglot
+    @JoinColumn(name = "contact_person") // todo to ask the client if its allowed to manage more then 1 parkinglot
     private ContactPerson contactPerson;
 
     @Embedded
