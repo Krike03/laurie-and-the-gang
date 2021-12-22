@@ -20,7 +20,6 @@ public class DivisionRepository {
     }
 
     public List<Division> getAllDivisions() {
-
         return entityManager.createQuery("select d from Division d", Division.class).getResultList();
     }
 }
