@@ -7,10 +7,10 @@ import org.laurieandthegang.parkshark.api.dto.CreateDivisionDto;
 import org.laurieandthegang.parkshark.api.dto.DivisionDto;
 import org.laurieandthegang.parkshark.api.mapper.DivisionMapper;
 import org.laurieandthegang.parkshark.domain.division.Division;
+import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 
 class DivisionServiceTest {
@@ -39,5 +39,32 @@ class DivisionServiceTest {
         DivisionDto divisionDto = divisionService.addDivision(createDivisionDto);
         //THEN
         Assertions.assertThat(divisionDto).isEqualTo(divisionMapper.mapper(division));
+    }
+
+    @Test
+    void givenDivisionToCreate_whenRegisteringDivisionNameIncorrectly_thenThrowError() {
+        //GIVEN
+        //WHEN
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto(null,"","");
+        //THEN
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
+    }
+
+    @Test
+    void givenDivisionToCreate_whenRegisteringDivisionOriginalNameIncorrectly_thenThrowError() {
+        //GIVEN
+        //WHEN
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto("",null,"");
+        //THEN
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
+    }
+
+    @Test
+    void givenDivisionToCreate_whenRegisteringDivisionDirectorIncorrectly_thenThrowError() {
+        //GIVEN
+        //WHEN
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto("","",null);
+        //THEN
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
     }
 }
