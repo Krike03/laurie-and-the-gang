@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto.controller;
+package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
