@@ -1,7 +1,7 @@
 package org.laurieandthegang.parkshark.api.controller;
 
-import io.restassured.RestAssured;
-import org.hamcrest.Matchers;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.laurieandthegang.parkshark.api.dto.CreateParkingLotDto;
@@ -12,14 +12,9 @@ import org.laurieandthegang.parkshark.domain.people.PostalCode;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.laurieandthegang.parkshark.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
-
-import static io.restassured.http.ContentType.JSON;
-import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
