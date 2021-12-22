@@ -14,9 +14,16 @@ public class DivisionMapper {
     }
 
     public DivisionDto mapper(Division division) {
+        DivisionDto subDivisionDto;
+        if(division.getDivision() == null){
+            subDivisionDto = null;
+        }else {
+            subDivisionDto = mapper(division.getDivision());
+        }
         return new DivisionDto(division.getId(),
                 division.getName(),
                 division.getOriginalName(),
-                division.getDirector());
+                division.getDirector(),
+                subDivisionDto);
     }
 }

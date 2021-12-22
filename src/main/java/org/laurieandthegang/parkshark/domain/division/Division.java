@@ -20,7 +20,7 @@ public class Division {
     private String director;
 
     @ManyToOne
-    @Column(name = "fk_parent_division")
+    @JoinColumn(name = "fk_parent_division")
     private Division division;
 
     public Division(String name, String originalName, String director) {
@@ -46,5 +46,9 @@ public class Division {
 
     public String getDirector() {
         return director;
+    }
+
+    public Division getDivision() {
+        return division;
     }
 }

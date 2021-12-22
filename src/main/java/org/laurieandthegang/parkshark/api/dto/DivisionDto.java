@@ -4,5 +4,6 @@ public record DivisionDto(
         int id,
         String name,
         String originalName,
-        String director) {
+        String director,
+        DivisionDto parentDivision) {
 }
