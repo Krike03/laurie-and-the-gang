@@ -1,5 +1,8 @@
 package org.laurieandthegang.parkshark.domain.parkinglot;
 
+import org.laurieandthegang.parkshark.domain.people.Address;
+import org.laurieandthegang.parkshark.domain.people.Name;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,6 +14,9 @@ public class ContactPerson {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Embedded
+    private Name name;
+
     @Column(name = "EMAIL", nullable = false)
     private String email;
 
@@ -19,6 +25,9 @@ public class ContactPerson {
 
     @Column(name = "TELEPHONE_NUMBER")
     private String telephoneNumber;
+
+    @Embedded
+    private Address address;
 
     public String getEmail() {
         return email;
