@@ -37,6 +37,15 @@ public class ParkingLot {
     private ParkingLot() {
     }
 
+    public ParkingLot(String name, Category category, int capacity, ContactPerson contactPerson, Address address, double pricePerHour) {
+        this.name = name;
+        this.category = category;
+        this.capacity = capacity;
+        this.contactPerson = contactPerson;
+        this.address = address;
+        this.pricePerHour = pricePerHour;
+    }
+
     public int getId() {
         return id;
     }
@@ -59,6 +68,10 @@ public class ParkingLot {
 
     public Address getAddress() {
         return address;
+    }
+
+    public double getPricePerHour() {
+        return pricePerHour;
     }
 
     @Override
