@@ -10,11 +10,14 @@ import java.util.Objects;
 public class ParkingLot {
 
     @Id
+    @SequenceGenerator(name = "PARKING_LOT_SEQ", sequenceName = "parking_lot_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PARKING_LOT_SEQ")
     private int id;
 
     @Column(name = "NAME")
     private String name;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "CATEGORY")
     private Category category;
 
