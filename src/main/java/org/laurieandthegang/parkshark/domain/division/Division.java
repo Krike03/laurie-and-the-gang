@@ -19,6 +19,10 @@ public class Division {
     @Column(name = "director", nullable = false)
     private String director;
 
+    @ManyToOne
+    @Column(name = "fk_parent_division")
+    private Division division;
+
     public Division(String name, String originalName, String director) {
         this.name = name;
         this.originalName = originalName;
