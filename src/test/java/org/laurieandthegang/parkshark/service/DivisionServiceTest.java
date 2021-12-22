@@ -32,11 +32,12 @@ class DivisionServiceTest {
         //GIVEN
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("Division name",
                 "Division original name",
-                "Director name");
+                "Director name",
+                null);
         Division division = new Division(createDivisionDto.name(), createDivisionDto.originalName(), createDivisionDto.director(), null);
         Mockito.doNothing().when(mockDivisionRepository).insertDivision(any());
         //WHEN
-        DivisionDto divisionDto = divisionService.addDivision(createDivisionDto, null);
+        DivisionDto divisionDto = divisionService.addDivision(createDivisionDto);
         //THEN
         Assertions.assertThat(divisionDto).isEqualTo(divisionMapper.mapper(division));
     }
@@ -45,26 +46,26 @@ class DivisionServiceTest {
     void givenDivisionToCreate_whenRegisteringDivisionNameIncorrectly_thenThrowError() {
         //GIVEN
         //WHEN
-        CreateDivisionDto createDivisionDto = new CreateDivisionDto(null,"","");
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto(null,"","", null);
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto, null));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
     }
 
     @Test
     void givenDivisionToCreate_whenRegisteringDivisionOriginalNameIncorrectly_thenThrowError() {
         //GIVEN
         //WHEN
-        CreateDivisionDto createDivisionDto = new CreateDivisionDto("",null,"");
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto("",null,"", null);
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto, null));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
     }
 
     @Test
     void givenDivisionToCreate_whenRegisteringDivisionDirectorIncorrectly_thenThrowError() {
         //GIVEN
         //WHEN
-        CreateDivisionDto createDivisionDto = new CreateDivisionDto("","",null);
+        CreateDivisionDto createDivisionDto = new CreateDivisionDto("","",null, null);
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto, null));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
     }
 }

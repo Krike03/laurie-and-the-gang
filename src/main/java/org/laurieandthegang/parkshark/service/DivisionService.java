@@ -22,13 +22,13 @@ public class DivisionService {
         this.divisionMapper = divisionMapper;
     }
 
-    public DivisionDto addDivision(CreateDivisionDto createDivisionDTO, Integer parentId) {
+    public DivisionDto addDivision(CreateDivisionDto createDivisionDto) {
         Division parentDivision = null;
-        if(parentId != null) {
-            parentDivision = divisionRepository.getDivisionById(parentId);
+        if(createDivisionDto.parentId() != null) {
+            parentDivision = divisionRepository.getDivisionById(createDivisionDto.parentId());
         }
-        validateRequiredFieldsNotNull(createDivisionDTO);
-        Division division = divisionMapper.mapper(createDivisionDTO, parentDivision);
+        validateRequiredFieldsNotNull(createDivisionDto);
+        Division division = divisionMapper.mapper(createDivisionDto, parentDivision);
         divisionRepository.insertDivision(division);
         return divisionMapper.mapper(division);
     }

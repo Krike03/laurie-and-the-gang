@@ -33,10 +33,9 @@ class DivisionControllerTest {
     @Autowired
     private DivisionService divisionService;
 
-    @Disabled
     @Test
     void givenDivisionToCreate_WhenRegisterDivisionCorrectly_thenAddDivision() {
-        CreateDivisionDto createDivisionDTO = new CreateDivisionDto("name", "originalName", "director");
+        CreateDivisionDto createDivisionDTO = new CreateDivisionDto("name", "originalName", "director", null);
 
         DivisionDto divisionDto = RestAssured
                 .given()
@@ -61,11 +60,11 @@ class DivisionControllerTest {
     @Test
     void givenDivisionInDatabase_whenGettingAllDivisions_thenAllDivisionsAreReturned() {
 
-        CreateDivisionDto divisionDto1 = new CreateDivisionDto("name1", "originalName1", "director1");
-        CreateDivisionDto divisionDto2 = new CreateDivisionDto("name2", "originalName2", "director2");
+        CreateDivisionDto divisionDto1 = new CreateDivisionDto("name1", "originalName1", "director1", null);
+        CreateDivisionDto divisionDto2 = new CreateDivisionDto("name2", "originalName2", "director2", null);
 
-        divisionService.addDivision(divisionDto1, null);
-        divisionService.addDivision(divisionDto2, null);
+        divisionService.addDivision(divisionDto1);
+        divisionService.addDivision(divisionDto2);
 
         List<DivisionDto> divisionDtoList = RestAssured
                 .given()
