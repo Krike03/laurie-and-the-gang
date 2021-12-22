@@ -31,4 +31,12 @@ public class DivisionController {
         logger.info("method call new division");
         return divisionService.addDivision(createDivisionDTO);
     }
-}
+
+
+//    @GetMapping(produces = APPLICATION_JSON_VALUE)
+//    @ResponseStatus(HttpStatus.OK)
+//    public List<DivisionDto> getAllDivisions(){
+//        logger.info("Method call: get all divisions");
+//        return divisionService.getAllDivisions();
+//    }
+//}

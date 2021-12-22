@@ -7,6 +7,9 @@ import org.laurieandthegang.parkshark.domain.division.Division;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class DivisionService {
 
@@ -22,6 +25,12 @@ public class DivisionService {
         Division division = divisionMapper.mapper(createDivisionDTO);
         divisionRepository.insertDivision(division);
         return divisionMapper.mapper(division);
+    }
+
+    public List<DivisionDto> getAllDivisions(){
+        return divisionRepository.getAllDivisions().stream()
+                .map(division -> divisionMapper.mapper(division))
+                .collect(Collectors.toList());
     }
 
 }
