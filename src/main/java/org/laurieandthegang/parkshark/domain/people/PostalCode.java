@@ -1,15 +1,18 @@
 package org.laurieandthegang.parkshark.domain.people;
 
+import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 import java.util.Objects;
 
 @Embeddable
 public class PostalCode {
 
-    @Column(name = "NUMERAL_CODE")
+    @Column(name = "NUMERAL_CODE", nullable = false)
     private String numeralCode;
 
-    @Column(name = "CITY_LABEL")
+    @Column(name = "CITY_LABEL", nullable = false)
     private String cityLabel;
 
     private PostalCode() {

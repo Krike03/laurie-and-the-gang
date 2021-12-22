@@ -1,6 +1,6 @@
 create sequence IF NOT EXISTS member_seq start with 1 increment by 1;
 create table member (
-    id integer default member_seq.nextval primary key,
+    id integer default nextval('member_seq') primary key,
     first_name varchar(255) not null,
     last_name varchar(255) not null,
     street_name varchar(255),

@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto.controller;
+package org.laurieandthegang.parkshark.api.controller;
 
 import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
 import org.laurieandthegang.parkshark.api.dto.MemberDto;

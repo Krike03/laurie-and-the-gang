@@ -19,10 +19,10 @@ public class Member {
     @Embedded
     private Address address;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
     @Embedded
