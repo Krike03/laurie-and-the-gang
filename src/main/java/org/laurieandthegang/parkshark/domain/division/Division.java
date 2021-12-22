@@ -19,6 +19,12 @@ public class Division {
     @Column(name = "director", nullable = false)
     private String director;
 
+    public Division(String name, String originalName, String director) {
+        this.name = name;
+        this.originalName = originalName;
+        this.director = director;
+    }
+
     public Division() {
     }
 
