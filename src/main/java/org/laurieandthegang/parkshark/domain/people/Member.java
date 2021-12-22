@@ -1,8 +1,5 @@
 package org.laurieandthegang.parkshark.domain.people;
 
-import com.sun.istack.NotNull;
-import org.springframework.lang.NonNull;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
