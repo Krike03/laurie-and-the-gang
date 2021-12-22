@@ -25,7 +25,7 @@ public class ParkingLot {
     private int capacity;
 
     @ManyToOne
-    @JoinColumn(name = "contact_person_id") // todo to ask the client if its allowed to manage more then 1 parkinglot
+    @JoinColumn(name = "contact_person") // todo to ask the client if its allowed to manage more then 1 parkinglot
     private ContactPerson contactPerson;
 
     @Embedded
@@ -35,6 +35,15 @@ public class ParkingLot {
     private double pricePerHour;
 
     private ParkingLot() {
+    }
+
+    public ParkingLot(String name, Category category, int capacity, ContactPerson contactPerson, Address address, double pricePerHour) {
+        this.name = name;
+        this.category = category;
+        this.capacity = capacity;
+        this.contactPerson = contactPerson;
+        this.address = address;
+        this.pricePerHour = pricePerHour;
     }
 
     public int getId() {
@@ -59,6 +68,10 @@ public class ParkingLot {
 
     public Address getAddress() {
         return address;
+    }
+
+    public double getPricePerHour() {
+        return pricePerHour;
     }
 
     @Override
