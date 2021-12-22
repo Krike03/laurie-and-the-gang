@@ -24,11 +24,12 @@ public class DivisionController {
         this.divisionService = divisionService;
     }
 
-    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE, path = "/{id}")
     @ResponseStatus(HttpStatus.CREATED)
-    public DivisionDto postDivision(@RequestBody CreateDivisionDto createDivisionDTO){
+    public DivisionDto postDivision(@RequestBody CreateDivisionDto createDivisionDTO,
+                                    @PathVariable(required = false, name = "id") int id){
         logger.info("method call new division");
-        return divisionService.addDivision(createDivisionDTO);
+        return divisionService.addDivision(createDivisionDTO, id);
     }
 
 

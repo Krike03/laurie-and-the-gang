@@ -33,10 +33,10 @@ class DivisionServiceTest {
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("Division name",
                 "Division original name",
                 "Director name");
-        Division division = new Division(createDivisionDto.name(), createDivisionDto.originalName(), createDivisionDto.director());
+        Division division = new Division(createDivisionDto.name(), createDivisionDto.originalName(), createDivisionDto.director(), null);
         Mockito.doNothing().when(mockDivisionRepository).insertDivision(any());
         //WHEN
-        DivisionDto divisionDto = divisionService.addDivision(createDivisionDto);
+        DivisionDto divisionDto = divisionService.addDivision(createDivisionDto, null);
         //THEN
         Assertions.assertThat(divisionDto).isEqualTo(divisionMapper.mapper(division));
     }
@@ -47,7 +47,7 @@ class DivisionServiceTest {
         //WHEN
         CreateDivisionDto createDivisionDto = new CreateDivisionDto(null,"","");
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto, null));
     }
 
     @Test
@@ -56,7 +56,7 @@ class DivisionServiceTest {
         //WHEN
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("",null,"");
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto, null));
     }
 
     @Test
@@ -65,6 +65,6 @@ class DivisionServiceTest {
         //WHEN
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("","",null);
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto, null));
     }
 }

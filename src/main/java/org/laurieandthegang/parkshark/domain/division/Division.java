@@ -21,16 +21,18 @@ public class Division {
 
     @ManyToOne
     @JoinColumn(name = "fk_parent_division")
-    private Division division;
+    private Division parentDivision;
 
-    public Division(String name, String originalName, String director) {
+    public Division(String name, String originalName, String director, Division parentDivision) {
         this.name = name;
         this.originalName = originalName;
         this.director = director;
+        this.parentDivision = parentDivision;
     }
 
     public Division() {
     }
+
 
     public int getId() {
         return id;
@@ -48,7 +50,7 @@ public class Division {
         return director;
     }
 
-    public Division getDivision() {
-        return division;
+    public Division getParentDivision() {
+        return parentDivision;
     }
 }

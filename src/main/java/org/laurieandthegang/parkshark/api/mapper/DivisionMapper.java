@@ -7,18 +7,19 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DivisionMapper {
-    public Division mapper(CreateDivisionDto createDivisionDTO) {
+    public Division mapper(CreateDivisionDto createDivisionDTO, Division parent) {
         return new Division(createDivisionDTO.name(),
                 createDivisionDTO.originalName(),
-                createDivisionDTO.director());
+                createDivisionDTO.director(),
+                parent);
     }
 
     public DivisionDto mapper(Division division) {
         DivisionDto subDivisionDto;
-        if(division.getDivision() == null){
+        if(division.getParentDivision() == null){
             subDivisionDto = null;
         }else {
-            subDivisionDto = mapper(division.getDivision());
+            subDivisionDto = mapper(division.getParentDivision());
         }
         return new DivisionDto(division.getId(),
                 division.getName(),
