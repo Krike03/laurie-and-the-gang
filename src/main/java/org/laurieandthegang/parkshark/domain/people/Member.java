@@ -1,5 +1,8 @@
 package org.laurieandthegang.parkshark.domain.people;
 
+import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -19,10 +22,10 @@ public class Member {
     @Embedded
     private Address address;
 
-    @Column(name = "PHONE_NUMBER")
+    @Column(name = "PHONE_NUMBER", nullable = false)
     private String phoneNumber;
 
-    @Column(name = "EMAIL")
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
     @Embedded

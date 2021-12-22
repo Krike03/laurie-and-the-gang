@@ -1,5 +1,8 @@
 package org.laurieandthegang.parkshark.domain.people;
 
+import com.sun.istack.NotNull;
+import org.springframework.lang.NonNull;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Id;
@@ -8,10 +11,10 @@ import java.util.Objects;
 @Embeddable
 public class LicensePlate {
 
-    @Column(name = "LICENSE_NUMBER")
+    @Column(name = "LICENSE_NUMBER", nullable = false)
     private String licenseNumber;
 
-    @Column(name = "COUNTRY_LABEL")
+    @Column(name = "COUNTRY_LABEL", nullable = false)
     private String countryLabel;
 
     private LicensePlate() {
