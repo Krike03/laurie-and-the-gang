@@ -4,6 +4,7 @@ import org.laurieandthegang.parkshark.api.dto.parkinglot.ContactPersonDto;
 import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.NameMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -11,6 +12,7 @@ public class ContactPersonMapper {
     private final NameMapper nameMapper;
     private final AddressMapper addressMapper;
 
+    @Autowired
     public ContactPersonMapper(NameMapper nameMapper, AddressMapper addressMapper) {
         this.nameMapper = nameMapper;
         this.addressMapper = addressMapper;
