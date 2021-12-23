@@ -43,7 +43,6 @@ public class ParkingLotMapper {
     }
 
     public RestrictedParkingLotDto mapEntityToTheRestrictedDto(ParkingLot parkingLot) {
-
         return new RestrictedParkingLotDto(
                 parkingLot.getId(),
                 parkingLot.getName(),

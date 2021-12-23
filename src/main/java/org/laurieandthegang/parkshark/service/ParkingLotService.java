@@ -39,12 +39,6 @@ public class ParkingLotService {
     }
 
     public List<RestrictedParkingLotDto> getAllParkingLots(){
-//        List<ParkingLotDto> parkingLotDtoList = parkingLotRepository.getAllParkingLots().stream()
-//                .map(parkingLotMapper::mapper)
-//                .collect(Collectors.toList());
-//
-//        Map<String, Object> parkingLotResult = new HashMap<>();
-//        parkingLotResult.put("id", pa)
         return parkingLotRepository.getAllParkingLots().stream()
                 .map(parkingLotMapper::mapEntityToTheRestrictedDto)
                 .collect(Collectors.toList());

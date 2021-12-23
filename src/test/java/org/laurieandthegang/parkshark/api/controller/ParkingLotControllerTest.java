@@ -1,11 +1,13 @@
 package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.RestrictedParkingLotDto;
 import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
@@ -13,13 +15,14 @@ import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
 import org.laurieandthegang.parkshark.domain.people.Address;
 import org.laurieandthegang.parkshark.domain.people.Name;
 import org.laurieandthegang.parkshark.domain.people.PostalCode;
-import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.laurieandthegang.parkshark.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.test.context.ActiveProfiles;
+
+import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,17 +35,23 @@ public class ParkingLotControllerTest {
     @LocalServerPort
     private int port;
 
-    @Autowired
     private ContactPersonMapper contactPersonMapper;
-
-    @Autowired
     private AddressMapper addressMapper;
+    private ParkingLotService parkingLotService;
+
+
 
     private ContactPerson contactPerson;
     private PostalCode postalCode;
     private Address address;
     private CreateParkingLotDto createParkingLotDto;
 
+    @Autowired
+    public ParkingLotControllerTest(ContactPersonMapper contactPersonMapper, AddressMapper addressMapper, ParkingLotService parkingLotService) {
+        this.contactPersonMapper = contactPersonMapper;
+        this.addressMapper = addressMapper;
+        this.parkingLotService = parkingLotService;
+    }
 
 
     @BeforeAll
@@ -98,6 +107,54 @@ public class ParkingLotControllerTest {
         assertThat(parkingLotDto.category()).isEqualTo(createParkingLotDto.category());
         assertThat(parkingLotDto.contactPerson()).isEqualTo(createParkingLotDto.contactPerson());
         assertThat(parkingLotDto.pricePerHour()).isEqualTo(createParkingLotDto.pricePerHour());
+
+    }
+
+    @Test
+    void givenParkingLotsInDatabase_whenGettingAllParkingLots_thenAllParkingLotsAreReturned() {
+
+        CreateParkingLotDto createParkingLotDto1 = new CreateParkingLotDto(
+                "Parking lot name",
+                Category.UNDERGROUND,
+                150,
+                contactPersonMapper.mapper(contactPerson),
+                addressMapper.mapper(address),
+                5.0);
+
+        CreateParkingLotDto createParkingLotDto2 = new CreateParkingLotDto(
+                "Parking lot name 2",
+                Category.ABOVE_GROUND,
+                150,
+                contactPersonMapper.mapper(contactPerson),
+                addressMapper.mapper(address),
+                5.0);
+
+        parkingLotService.addParkingLot(createParkingLotDto1);
+        parkingLotService.addParkingLot(createParkingLotDto2);
+
+        List<RestrictedParkingLotDto> restrictedParkingLotDtoList = RestAssured
+                .given()
+                .contentType(JSON)
+                .when()
+                .port(port)
+                .get("/parkinglots")
+                .then()
+                .assertThat()
+                .statusCode(HttpStatus.OK.value())
+                .extract()
+                .jsonPath().getList(".",RestrictedParkingLotDto.class);
+
+        Assertions.assertThat(restrictedParkingLotDtoList.get(0).name()).isEqualTo(createParkingLotDto1.name());
+        Assertions.assertThat(restrictedParkingLotDtoList.get(0).capacity()).isEqualTo(createParkingLotDto1.capacity());
+        Assertions.assertThat(restrictedParkingLotDtoList.get(0).email()).isEqualTo(createParkingLotDto1.contactPerson().email());
+        Assertions.assertThat(restrictedParkingLotDtoList.get(0).telephone()).isEqualTo(createParkingLotDto1.contactPerson().telephoneNumber());
+
+        Assertions.assertThat(restrictedParkingLotDtoList.get(1).name()).isEqualTo(createParkingLotDto2.name());
+        Assertions.assertThat(restrictedParkingLotDtoList.get(1).capacity()).isEqualTo(createParkingLotDto2.capacity());
+        Assertions.assertThat(restrictedParkingLotDtoList.get(1).email()).isEqualTo(createParkingLotDto2.contactPerson().email());
+        Assertions.assertThat(restrictedParkingLotDtoList.get(1).telephone()).isEqualTo(createParkingLotDto2.contactPerson().telephoneNumber());
+
+
 
     }
 }
