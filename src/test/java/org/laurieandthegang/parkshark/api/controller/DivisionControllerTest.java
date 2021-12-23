@@ -10,11 +10,14 @@ import org.laurieandthegang.parkshark.api.dto.DivisionDto;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;
 import org.laurieandthegang.parkshark.service.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
@@ -23,6 +26,8 @@ import static org.springframework.http.HttpStatus.OK;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 class DivisionControllerTest {
 
     @LocalServerPort
@@ -85,5 +90,32 @@ class DivisionControllerTest {
         Assertions.assertThat(divisionDtoList.get(1).name()).isEqualTo(divisionDto2.name());
         Assertions.assertThat(divisionDtoList.get(1).originalName()).isEqualTo(divisionDto2.originalName());
         Assertions.assertThat(divisionDtoList.get(1).director()).isEqualTo(divisionDto2.director());
+    }
+
+    @Test
+    void givenSubdivisionInDatabase_whenGettingAllDivisions_thenDivisonsHasAParentDivisions() {
+
+        CreateDivisionDto divisionDto1 = new CreateDivisionDto("name1", "originalName1", "director1", null);
+        CreateDivisionDto divisionDto2 = new CreateDivisionDto("name2", "originalName2", "director2", 1);
+
+        divisionService.addDivision(divisionDto1);
+        divisionService.addDivision(divisionDto2);
+
+        List<DivisionDto> divisionDtoList = RestAssured
+                .given()
+                .contentType(JSON)
+//                .header
+                .when()
+                .port(port)
+                .get("/divisions")
+                .then()
+                .assertThat()
+                .statusCode(OK.value())
+                .extract()
+                .jsonPath().getList(".", DivisionDto.class);
+
+        Assertions.assertThat(divisionDtoList.get(1).parentDivision().name()).isEqualTo(divisionDto1.name());
+        Assertions.assertThat(divisionDtoList.get(1).parentDivision().originalName()).isEqualTo(divisionDto1.originalName());
+        Assertions.assertThat(divisionDtoList.get(1).parentDivision().director()).isEqualTo(divisionDto1.director());
     }
 }
