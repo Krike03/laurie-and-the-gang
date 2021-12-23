@@ -8,7 +8,6 @@ import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
 import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
 import org.laurieandthegang.parkshark.api.mapper.address.PostalCodeMapper;
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
-import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.LicensePlateMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.MemberMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.NameMapper;
@@ -28,7 +27,6 @@ class MemberServiceTest {
     private MemberMapper memberMapper;
     private Validator validator;
 
-    private ParkingLotMapper parkingLotMapper;
     private ContactPersonMapper contactPersonMapper;
     private AddressMapper addressMapper;
     private PostalCodeMapper postalCodeMapper;
@@ -39,16 +37,20 @@ class MemberServiceTest {
     void setUp() {
         mockMemberRepository = Mockito.mock(MemberRepository.class);
 
+
         nameMapper = new NameMapper();
         licensePlateMapper = new LicensePlateMapper();
         postalCodeMapper = new PostalCodeMapper();
         addressMapper = new AddressMapper(postalCodeMapper);
         contactPersonMapper = new ContactPersonMapper(nameMapper, addressMapper);
-        parkingLotMapper = new ParkingLotMapper(contactPersonMapper, addressMapper);
 
         validator = new Validator(addressMapper,
                 licensePlateMapper,
                 contactPersonMapper);
+
+        memberMapper = new MemberMapper(nameMapper, addressMapper, licensePlateMapper);
+        memberService = new MemberService(mockMemberRepository, memberMapper, validator);
+
     }
 
     @Test
@@ -99,10 +101,11 @@ class MemberServiceTest {
     @Test
     void givenMemberToCreate_whenRegisteringMemberAddressIncorrectly_thenThrowError() {
         //GIVEN
+
         //WHEN
         CreateMemberDto createMemberDto = new CreateMemberDto(
                 nameMapper.mapper(new Name("First", "Last")),
-                addressMapper.mapper(new Address("Sesam", "123", null)),
+                addressMapper.mapper(new Address("Sesam", "123", new PostalCode(null,null))),
                 "02/8985847",
                 "wtf@wtf.com",
                 licensePlateMapper.mapper(new LicensePlate("1-TYR-963", "BE")));

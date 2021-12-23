@@ -45,6 +45,8 @@ class MemberControllerTest {
 
     @Autowired
     private LicensePlateMapper licensePlateMapper;
+
+    @Autowired
     private MemberService memberService;
 
     private Name name;
