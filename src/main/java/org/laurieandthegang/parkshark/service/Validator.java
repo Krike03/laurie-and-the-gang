@@ -7,16 +7,21 @@ import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.LicensePlateMapper;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-public enum Validator {
-    VALIDATOR;
+@Component
+public class Validator {
+
+    private final AddressMapper addressMapper;
+    private final LicensePlateMapper licensePlateMapper;
+    private final ContactPersonMapper contactPersonMapper;
 
     @Autowired
-    private AddressMapper addressMapper;
-    @Autowired
-    private LicensePlateMapper licensePlateMapper;
-    @Autowired
-    private ContactPersonMapper contactPersonMapper;
+    public Validator(AddressMapper addressMapper, LicensePlateMapper licensePlateMapper, ContactPersonMapper contactPersonMapper) {
+        this.addressMapper = addressMapper;
+        this.licensePlateMapper = licensePlateMapper;
+        this.contactPersonMapper = contactPersonMapper;
+    }
 
 
     public void validateRequiredFieldsNotNull(CreateParkingLotDto createParkingLotDto) {

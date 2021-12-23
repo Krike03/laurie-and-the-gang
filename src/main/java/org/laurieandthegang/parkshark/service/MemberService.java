@@ -5,29 +5,27 @@ import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
 import org.laurieandthegang.parkshark.api.mapper.people.MemberMapper;
 import org.laurieandthegang.parkshark.domain.people.Member;
 import org.laurieandthegang.parkshark.repository.MemberRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static org.laurieandthegang.parkshark.service.Validator.VALIDATOR;
 
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MemberService.class); // <- delete if never used in the future
-    private MemberMapper memberMapper;
+    private final MemberMapper memberMapper;
+    private final Validator validator;
 
-    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper) {
+    @Autowired
+    public MemberService(MemberRepository memberRepository, MemberMapper memberMapper, Validator validator) {
         this.memberRepository = memberRepository;
         this.memberMapper = memberMapper;
+        this.validator = validator;
     }
 
     public MemberDto addMember(CreateMemberDto createMemberDto) {
-        VALIDATOR.validateRequiredFieldsNotNull(createMemberDto);
+        validator.validateRequiredFieldsNotNull(createMemberDto);
 
         Member member = memberMapper.mapper(createMemberDto);
         memberRepository.addMember(member);
         return memberMapper.mapper(member);
-
     }
 }

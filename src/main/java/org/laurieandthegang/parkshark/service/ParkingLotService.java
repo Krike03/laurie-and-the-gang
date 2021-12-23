@@ -7,23 +7,25 @@ import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import static org.laurieandthegang.parkshark.service.Validator.VALIDATOR;
 
 @Service
 public class ParkingLotService {
     private final ParkingLotRepository parkingLotRepository;
     private static final Logger LOGGER = LoggerFactory.getLogger(MemberService.class); // <- delete if never used in the future
     private final ParkingLotMapper parkingLotMapper;
+    private final Validator validator;
 
-    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper) {
+    @Autowired
+    public ParkingLotService(ParkingLotRepository parkingLotRepository, ParkingLotMapper parkingLotMapper, Validator validator) {
         this.parkingLotRepository = parkingLotRepository;
         this.parkingLotMapper = parkingLotMapper;
+        this.validator = validator;
     }
 
     public ParkingLotDto addParkingLot(CreateParkingLotDto createParkingLotDto) {
-        VALIDATOR.validateRequiredFieldsNotNull(createParkingLotDto);
+        validator.validateRequiredFieldsNotNull(createParkingLotDto);
 
         ParkingLot parkingLot = parkingLotMapper.mapper(createParkingLotDto);
         parkingLotRepository.addParkingLot(parkingLot);

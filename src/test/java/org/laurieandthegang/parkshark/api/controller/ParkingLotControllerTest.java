@@ -6,6 +6,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
+import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
 import org.laurieandthegang.parkshark.domain.people.Address;
@@ -31,13 +33,17 @@ public class ParkingLotControllerTest {
     private int port;
 
     @Autowired
-    private ParkingLotRepository parkingLotRepository;
+    private ContactPersonMapper contactPersonMapper;
+
     @Autowired
-    private ParkingLotService parkingLotService;
+    private AddressMapper addressMapper;
+
     private ContactPerson contactPerson;
     private PostalCode postalCode;
     private Address address;
     private CreateParkingLotDto createParkingLotDto;
+
+
 
     @BeforeAll
     void setUp() {
@@ -60,8 +66,8 @@ public class ParkingLotControllerTest {
                 "parking name",
                 Category.UNDERGROUND,
                 100,
-                contactPerson,
-                address,
+                contactPersonMapper.mapper(contactPerson),
+                addressMapper.mapper(address),
                 1.12);
 
     }
