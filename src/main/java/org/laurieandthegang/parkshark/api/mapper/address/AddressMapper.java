@@ -12,6 +12,12 @@ public class AddressMapper {
         this.postalCodeMapper = postalCodeMapper;
     }
 
+    public AddressDto mapper(Address address) {
+        return new AddressDto(address.getStreetName(),
+                address.getStreetNumber(),
+                postalCodeMapper.mapper(address.getPostalCode()));
+    }
+
     public Address mapper(AddressDto addressDto) {
         return new Address(
                 addressDto.streetName(),

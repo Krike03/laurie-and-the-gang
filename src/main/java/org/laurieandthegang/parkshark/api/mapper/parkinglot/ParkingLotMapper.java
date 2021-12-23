@@ -2,11 +2,23 @@ package org.laurieandthegang.parkshark.api.mapper.parkinglot;
 
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ParkingLotMapper {
+
+    private final ContactPersonMapper contactPersonMapper;
+    private final AddressMapper addressMapper;
+
+    @Autowired
+    public ParkingLotMapper(ContactPersonMapper contactPersonMapper, AddressMapper addressMapper) {
+        this.contactPersonMapper = contactPersonMapper;
+        this.addressMapper = addressMapper;
+    }
+
 
     public ParkingLotDto mapper(ParkingLot parkingLot) {
         return new ParkingLotDto(
@@ -14,8 +26,8 @@ public class ParkingLotMapper {
                 parkingLot.getName(),
                 parkingLot.getCategory(),
                 parkingLot.getCapacity(),
-                parkingLot.getContactPerson(),
-                parkingLot.getAddress(),
+                contactPersonMapper.mapper(parkingLot.getContactPerson()),
+                addressMapper.mapper(parkingLot.getAddress()),
                 parkingLot.getPricePerHour());
     }
 

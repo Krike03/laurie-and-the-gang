@@ -6,6 +6,11 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PostalCodeMapper {
+    public PostalCodeDto mapper(PostalCode postalCode) {
+        return new PostalCodeDto(postalCode.getNumeralCode(),
+                postalCode.getCityLabel());
+    }
+
     public PostalCode mapper(PostalCodeDto postalCodeDto) {
         return new PostalCode(
                 postalCodeDto.numeralCode()

@@ -16,6 +16,16 @@ public class ContactPersonMapper {
         this.addressMapper = addressMapper;
     }
 
+    public ContactPersonDto mapper(ContactPerson contactPerson) {
+        return new ContactPersonDto(
+                nameMapper.mapper(contactPerson.getName()),
+                contactPerson.getEmail(),
+                contactPerson.getMobilePhoneNumber(),
+                contactPerson.getTelephoneNumber(),
+                addressMapper.mapper(contactPerson.getAddress())
+        );
+    }
+
     public ContactPerson mapper(ContactPersonDto contactPersonDto) {
         return new ContactPerson(
                 nameMapper.mapper(contactPersonDto.name()),

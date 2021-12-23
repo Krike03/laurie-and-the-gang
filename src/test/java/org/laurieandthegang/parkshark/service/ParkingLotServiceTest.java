@@ -33,7 +33,7 @@ public class ParkingLotServiceTest {
     @BeforeEach
     void setUp() {
         mockParkingLotRepository = Mockito.mock(ParkingLotRepository.class);
-        parkingLotMapper = new ParkingLotMapper();
+        parkingLotMapper = new ParkingLotMapper(contactPersonMapper, addressMapper);
         parkingLotService = new ParkingLotService(mockParkingLotRepository, parkingLotMapper);
         Address contactPersonsAddress = new Address("Sesams", "123", new PostalCode("123", "BE"));
         contactPerson = new ContactPerson(new Name("Tims", "second mistake"), "tim@2ndmistake.org", "2- 1 - 11 en de rest zoekte zelf", null, contactPersonsAddress);
