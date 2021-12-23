@@ -26,7 +26,11 @@ public class ParkingLotService {
         validateRequiredFieldsNotNull(createParkingLotDto);
 
         ParkingLot parkingLot = parkingLotMapper.mapper(createParkingLotDto);
+
+
         parkingLotRepository.addParkingLot(parkingLot);
+
+
         return parkingLotMapper.mapper(parkingLot);
     }
 

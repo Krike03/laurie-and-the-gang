@@ -10,6 +10,7 @@ import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
 import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
 import org.laurieandthegang.parkshark.domain.people.Address;
+import org.laurieandthegang.parkshark.domain.people.Name;
 import org.laurieandthegang.parkshark.domain.people.PostalCode;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.mockito.Mockito;
@@ -34,7 +35,8 @@ public class ParkingLotServiceTest {
         mockParkingLotRepository = Mockito.mock(ParkingLotRepository.class);
         parkingLotMapper = new ParkingLotMapper();
         parkingLotService = new ParkingLotService(mockParkingLotRepository, parkingLotMapper);
-        contactPerson = new ContactPerson();
+        Address contactPersonsAddress = new Address("Sesams", "123", new PostalCode("123", "BE"));
+        contactPerson = new ContactPerson(new Name("Tims", "second mistake"), "tim@2ndmistake.org", "2- 1 - 11 en de rest zoekte zelf", null, contactPersonsAddress);
         postalCode = new PostalCode("9000", "Gent");
         address = new Address("Sint-Pieters NieuwStraat", "8964", postalCode);
         createParkingLotDto = new CreateParkingLotDto("NameParking", 563, address, Category.UNDERGROUND, contactPerson, 9.35);

@@ -42,6 +42,17 @@ public class ContactPerson {
         return telephoneNumber;
     }
 
+    public ContactPerson(Name name, String email, String mobilePhoneNumber, String telephoneNumber, Address address) {
+        this.name = name;
+        this.email = email;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.address = address;
+    }
+
+    private ContactPerson() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
