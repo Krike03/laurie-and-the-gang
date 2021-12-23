@@ -37,6 +37,10 @@ class MemberControllerTest {
     @LocalServerPort
     private int port;
 
+
+    private String response;
+    private String url;
+
     @Autowired
     private NameMapper nameMapper;
 
@@ -60,6 +64,21 @@ class MemberControllerTest {
         postalCode = new PostalCode("toktg", "oghf");
         address = new Address("timtom", "tomtim", postalCode);
         licensePlate = new LicensePlate("shfdug", "België.");
+        url = "https://keycloak.switchfully.com/auth/realms/java-oct-2021/protocol/openid-connect/token";
+
+        response = RestAssured
+                .given()
+                .contentType("application/x-www-form-urlencoded; charset=utf-8")
+                .formParam("grant_type", "password")
+                .formParam("username", "manager1")
+                .formParam("password", "password")
+                .formParam("client_id", "parkshark")
+                .when()
+                .post(url)
+                .then()
+                .extract()
+                .path("access_token")
+                .toString();
     }
 
     @Test
@@ -148,6 +167,8 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .auth()
+                .oauth2(response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)

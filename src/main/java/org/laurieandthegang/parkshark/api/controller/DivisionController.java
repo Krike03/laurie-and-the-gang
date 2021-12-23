@@ -6,6 +6,7 @@ import org.laurieandthegang.parkshark.service.DivisionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class DivisionController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADD_DIVISION')")
     public DivisionDto postDivision(@RequestBody CreateDivisionDto createDivisionDTO) {
         logger.info("method call new division");
         return divisionService.addDivision(createDivisionDTO);
@@ -34,6 +36,7 @@ public class DivisionController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('GET_DIVISIONS')")
     public List<DivisionDto> getAllDivisions() {
         logger.info("Method call: get all divisions");
         return divisionService.getAllDivisions();

@@ -32,6 +32,9 @@ public class ParkingLotControllerTest {
     @LocalServerPort
     private int port;
 
+    private String url;
+    private String response;
+
     @Autowired
     private ContactPersonMapper contactPersonMapper;
 
@@ -42,6 +45,7 @@ public class ParkingLotControllerTest {
     private PostalCode postalCode;
     private Address address;
     private CreateParkingLotDto createParkingLotDto;
+
 
 
 
@@ -69,6 +73,22 @@ public class ParkingLotControllerTest {
                 contactPersonMapper.mapper(contactPerson),
                 addressMapper.mapper(address),
                 1.12);
+
+        url = "https://keycloak.switchfully.com/auth/realms/java-oct-2021/protocol/openid-connect/token";
+
+        response = RestAssured
+                .given()
+                .contentType("application/x-www-form-urlencoded; charset=utf-8")
+                .formParam("grant_type", "password")
+                .formParam("username", "manager1")
+                .formParam("password", "password")
+                .formParam("client_id", "parkshark")
+                .when()
+                .post(url)
+                .then()
+                .extract()
+                .path("access_token")
+                .toString();
 
     }
 
