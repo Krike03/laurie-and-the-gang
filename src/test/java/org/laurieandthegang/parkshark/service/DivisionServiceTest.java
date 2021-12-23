@@ -11,6 +11,10 @@ import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;
 import org.mockito.Mockito;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import static org.mockito.ArgumentMatchers.any;
 
 class DivisionServiceTest {
@@ -67,5 +71,25 @@ class DivisionServiceTest {
         CreateDivisionDto createDivisionDto = new CreateDivisionDto("","",null, null);
         //THEN
         Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> divisionService.addDivision(createDivisionDto));
+    }
+
+
+    @Test
+    void givenDivisionsInDatabase_whenGettingAllDivionsThenAllDivisionsAreReturned() {
+
+        Division divisionDto1 = new Division("name1", "originalName1", "director1", null);
+        Division divisionDto2 = new Division("name2", "originalName2", "director2", divisionDto1);
+
+        List<Division> divisionList = new ArrayList<>();
+        divisionList.add(divisionDto1);
+        divisionList.add(divisionDto2);
+
+        List<DivisionDto> expectedDivisionsDtoList = divisionList.stream()
+                        .map(division -> divisionMapper.mapper(division))
+                        .collect(Collectors.toList());
+
+        Mockito.when(mockDivisionRepository.getAllDivisions()).thenReturn(divisionList);
+
+        Assertions.assertThat(divisionService.getAllDivisions()).isEqualTo(expectedDivisionsDtoList);
     }
 }
