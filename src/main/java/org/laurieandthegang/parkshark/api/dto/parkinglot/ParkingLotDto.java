@@ -12,3 +12,4 @@ public record ParkingLotDto(
         AddressDto address,
         double pricePerHour) {
 }
+//id, name, capacity and the contact person's email + telephone (nothing else)

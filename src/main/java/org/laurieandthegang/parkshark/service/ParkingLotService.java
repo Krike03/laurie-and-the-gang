@@ -2,6 +2,7 @@ package org.laurieandthegang.parkshark.service;
 
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.RestrictedParkingLotDto;
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
@@ -9,6 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class ParkingLotService {
@@ -30,6 +36,18 @@ public class ParkingLotService {
         ParkingLot parkingLot = parkingLotMapper.mapper(createParkingLotDto);
         parkingLotRepository.addParkingLot(parkingLot);
         return parkingLotMapper.mapper(parkingLot);
+    }
+
+    public List<RestrictedParkingLotDto> getAllParkingLots(){
+//        List<ParkingLotDto> parkingLotDtoList = parkingLotRepository.getAllParkingLots().stream()
+//                .map(parkingLotMapper::mapper)
+//                .collect(Collectors.toList());
+//
+//        Map<String, Object> parkingLotResult = new HashMap<>();
+//        parkingLotResult.put("id", pa)
+        return parkingLotRepository.getAllParkingLots().stream()
+                .map(parkingLotMapper::mapEntityToTheRestrictedDto)
+                .collect(Collectors.toList());
     }
 
 }
