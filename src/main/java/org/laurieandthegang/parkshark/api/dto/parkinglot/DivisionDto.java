@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto;
+package org.laurieandthegang.parkshark.api.dto.parkinglot;
 
 public record DivisionDto(
         int id,

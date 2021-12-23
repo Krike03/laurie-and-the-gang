@@ -1,7 +1,7 @@
 package org.laurieandthegang.parkshark.api.controller;
 
-import org.laurieandthegang.parkshark.api.dto.CreateDivisionDto;
-import org.laurieandthegang.parkshark.api.dto.DivisionDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateDivisionDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.DivisionDto;
 import org.laurieandthegang.parkshark.service.DivisionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,7 +1,7 @@
 package org.laurieandthegang.parkshark.api.mapper;
 
-import org.laurieandthegang.parkshark.api.dto.CreateDivisionDto;
-import org.laurieandthegang.parkshark.api.dto.DivisionDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateDivisionDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.DivisionDto;
 import org.laurieandthegang.parkshark.domain.division.Division;
 import org.springframework.stereotype.Component;
 

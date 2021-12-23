@@ -1,9 +1,6 @@
 package org.laurieandthegang.parkshark.api.dto.people;
 
-import org.laurieandthegang.parkshark.api.dto.AddressDto;
-import org.laurieandthegang.parkshark.domain.people.Address;
-import org.laurieandthegang.parkshark.domain.people.LicensePlate;
-import org.laurieandthegang.parkshark.domain.people.Name;
+import org.laurieandthegang.parkshark.api.dto.address.AddressDto;
 
 import java.time.LocalDate;
 
