@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto;
+package org.laurieandthegang.parkshark.api.dto.people;
 
 import com.sun.istack.NotNull;
 import org.laurieandthegang.parkshark.domain.people.Address;

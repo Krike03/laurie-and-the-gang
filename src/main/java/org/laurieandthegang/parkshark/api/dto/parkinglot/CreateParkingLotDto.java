@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto;
+package org.laurieandthegang.parkshark.api.dto.parkinglot;
 
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;

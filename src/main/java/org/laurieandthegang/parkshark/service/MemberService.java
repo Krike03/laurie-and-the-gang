@@ -1,18 +1,14 @@
 package org.laurieandthegang.parkshark.service;
 
-import org.hibernate.PropertyValueException;
-import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
-import org.laurieandthegang.parkshark.api.dto.MemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
 import org.laurieandthegang.parkshark.api.mapper.MemberMapper;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.MemberRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.laurieandthegang.parkshark.domain.people.*;
-
-import java.lang.reflect.Field;
 
 @Service
 public class MemberService {

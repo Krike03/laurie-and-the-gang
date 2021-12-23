@@ -1,7 +1,7 @@
 package org.laurieandthegang.parkshark.api.mapper;
 
-import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
-import org.laurieandthegang.parkshark.api.dto.MemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
 import org.laurieandthegang.parkshark.domain.people.Member;
 import org.springframework.stereotype.Component;
 

@@ -2,11 +2,10 @@ package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.laurieandthegang.parkshark.api.dto.CreateParkingLotDto;
-import org.laurieandthegang.parkshark.api.dto.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
 import org.laurieandthegang.parkshark.domain.people.Address;
@@ -44,16 +43,26 @@ public class ParkingLotControllerTest {
     void setUp() {
         Address contactPersonsAddress = new Address("Sesam", "123", new PostalCode("123", "BE"));
 
-        contactPerson = new ContactPerson(new Name("Tims", "mistake"), "tim@mistake.org", "2- 1 - 11 en de rest zoekte zelf", null, contactPersonsAddress);
-        // add C P to database
-
-
+        contactPerson = new ContactPerson(
+                new Name("Tims", "mistake"),
+                "tim@mistake.org",
+                "2- 1 - 11 en de rest zoekte zelf",
+                null,
+                contactPersonsAddress);
 
         postalCode = new PostalCode("9000", "Gent");
-        address = new Address("Sint-Pieters NieuwStraat", "8964", postalCode);
+        address = new Address("Sint-Pieters NieuwStraat",
+                "8964",
+                postalCode);
 
 
-        createParkingLotDto = new CreateParkingLotDto("parking name", Category.UNDERGROUND, 100, contactPerson, contactPersonsAddress, 1.12);
+        createParkingLotDto = new CreateParkingLotDto(
+                "parking name",
+                Category.UNDERGROUND,
+                100,
+                contactPerson,
+                address,
+                1.12);
 
     }
 

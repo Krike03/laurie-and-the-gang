@@ -24,8 +24,8 @@ public class ParkingLot {
     @Column(name = "CAPACITY")
     private int capacity;
 
-    @ManyToOne
-    @JoinColumn(name = "contact_person") // todo to ask the client if its allowed to manage more then 1 parkinglot
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "contact_person")
     private ContactPerson contactPerson;
 
     @Embedded

@@ -1,8 +1,7 @@
 package org.laurieandthegang.parkshark.service;
 
-import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
-import org.laurieandthegang.parkshark.api.dto.CreateParkingLotDto;
-import org.laurieandthegang.parkshark.api.dto.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
 import org.laurieandthegang.parkshark.api.mapper.ParkingLotMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;

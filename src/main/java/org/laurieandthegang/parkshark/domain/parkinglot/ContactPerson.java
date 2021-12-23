@@ -10,7 +10,8 @@ import java.util.Objects;
 @Table(name = "contact_person")
 public class ContactPerson {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "CONTACT_PERSON_SEQ", sequenceName = "contact_person_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTACT_PERSON_SEQ")
     @Column(name = "id", nullable = false)
     private Integer id;
 

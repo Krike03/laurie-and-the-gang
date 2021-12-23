@@ -3,8 +3,8 @@ package org.laurieandthegang.parkshark.service;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.laurieandthegang.parkshark.api.dto.CreateParkingLotDto;
-import org.laurieandthegang.parkshark.api.dto.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
 import org.laurieandthegang.parkshark.api.mapper.ParkingLotMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
@@ -39,7 +39,10 @@ public class ParkingLotServiceTest {
         contactPerson = new ContactPerson(new Name("Tims", "second mistake"), "tim@2ndmistake.org", "2- 1 - 11 en de rest zoekte zelf", null, contactPersonsAddress);
         postalCode = new PostalCode("9000", "Gent");
         address = new Address("Sint-Pieters NieuwStraat", "8964", postalCode);
-        createParkingLotDto = new CreateParkingLotDto("NameParking", 563, address, Category.UNDERGROUND, contactPerson, 9.35);
+
+
+
+        createParkingLotDto = new CreateParkingLotDto("parking name", Category.UNDERGROUND, 100, contactPerson, contactPersonsAddress, 1.12);
     }
 
     @Test

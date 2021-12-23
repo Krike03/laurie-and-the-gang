@@ -18,7 +18,7 @@ public class DivisionController {
 
     private final static Logger logger = LoggerFactory.getLogger(DivisionController.class);
 
-    private DivisionService divisionService;
+    private final DivisionService divisionService;
 
     public DivisionController(DivisionService divisionService) {
         this.divisionService = divisionService;
@@ -26,7 +26,7 @@ public class DivisionController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public DivisionDto postDivision(@RequestBody CreateDivisionDto createDivisionDTO){
+    public DivisionDto postDivision(@RequestBody CreateDivisionDto createDivisionDTO) {
         logger.info("method call new division");
         return divisionService.addDivision(createDivisionDTO);
     }
@@ -34,7 +34,7 @@ public class DivisionController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
-    public List<DivisionDto> getAllDivisions(){
+    public List<DivisionDto> getAllDivisions() {
         logger.info("Method call: get all divisions");
         return divisionService.getAllDivisions();
     }

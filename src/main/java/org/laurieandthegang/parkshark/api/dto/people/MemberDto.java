@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto;
+package org.laurieandthegang.parkshark.api.dto.people;
 
 import org.laurieandthegang.parkshark.domain.people.Address;
 import org.laurieandthegang.parkshark.domain.people.LicensePlate;
