@@ -1,4 +1,5 @@
 package org.laurieandthegang.parkshark.api.dto.people;
 
-public class LicensePlateDto {
+public record LicensePlateDto (String licensePlateNumber,
+                               String licePlateLabel) {
 }
