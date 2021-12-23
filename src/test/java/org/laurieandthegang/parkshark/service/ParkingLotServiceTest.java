@@ -43,7 +43,6 @@ public class ParkingLotServiceTest {
     private CreateParkingLotDto createParkingLotDto;
 
 
-
     @BeforeAll
     void setUp() {
         mockParkingLotRepository = Mockito.mock(ParkingLotRepository.class);

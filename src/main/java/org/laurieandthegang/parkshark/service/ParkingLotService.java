@@ -4,7 +4,6 @@ import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
-import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,12 +3,8 @@ package org.laurieandthegang.parkshark.service;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
 import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
-import org.laurieandthegang.parkshark.api.mapper.address.PostalCodeMapper;
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
-import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.LicensePlateMapper;
-import org.laurieandthegang.parkshark.api.mapper.people.MemberMapper;
-import org.laurieandthegang.parkshark.api.mapper.people.NameMapper;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -21,7 +17,6 @@ public enum Validator {
     private LicensePlateMapper licensePlateMapper;
     @Autowired
     private ContactPersonMapper contactPersonMapper;
-
 
 
     public void validateRequiredFieldsNotNull(CreateParkingLotDto createParkingLotDto) {

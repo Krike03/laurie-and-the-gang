@@ -3,12 +3,11 @@ package org.laurieandthegang.parkshark.service;
 import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
 import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
 import org.laurieandthegang.parkshark.api.mapper.people.MemberMapper;
-import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
+import org.laurieandthegang.parkshark.domain.people.Member;
 import org.laurieandthegang.parkshark.repository.MemberRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.laurieandthegang.parkshark.domain.people.*;
 
 import static org.laurieandthegang.parkshark.service.Validator.VALIDATOR;
 
