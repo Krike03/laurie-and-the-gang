@@ -36,8 +36,8 @@ public class ParkingLotMapper {
                 createParkingLotDto.name(),
                 createParkingLotDto.category(),
                 createParkingLotDto.capacity(),
-                createParkingLotDto.contactPerson(),
-                createParkingLotDto.address(),
+                contactPersonMapper.mapper(createParkingLotDto.contactPerson()),
+                addressMapper.mapper(createParkingLotDto.address()),
                 createParkingLotDto.pricePerHour());
     }
 }

@@ -14,6 +14,7 @@ import org.laurieandthegang.parkshark.domain.people.Name;
 import org.laurieandthegang.parkshark.domain.people.PostalCode;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.mockito.ArgumentMatchers.any;
 
@@ -21,7 +22,10 @@ import static org.mockito.ArgumentMatchers.any;
 public class ParkingLotServiceTest {
 
     private ParkingLotRepository mockParkingLotRepository;
+
+    @Autowired
     private ParkingLotService parkingLotService;
+    @Autowired
     private ParkingLotMapper parkingLotMapper;
 
     private ContactPerson contactPerson;
@@ -30,11 +34,10 @@ public class ParkingLotServiceTest {
     private CreateParkingLotDto createParkingLotDto;
 
 
+
     @BeforeEach
     void setUp() {
         mockParkingLotRepository = Mockito.mock(ParkingLotRepository.class);
-        parkingLotMapper = new ParkingLotMapper(contactPersonMapper, addressMapper);
-        parkingLotService = new ParkingLotService(mockParkingLotRepository, parkingLotMapper);
         Address contactPersonsAddress = new Address("Sesams", "123", new PostalCode("123", "BE"));
         contactPerson = new ContactPerson(new Name("Tims", "second mistake"), "tim@2ndmistake.org", "2- 1 - 11 en de rest zoekte zelf", null, contactPersonsAddress);
         postalCode = new PostalCode("9000", "Gent");
