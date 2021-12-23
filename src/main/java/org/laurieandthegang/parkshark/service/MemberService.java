@@ -10,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.laurieandthegang.parkshark.domain.people.*;
 
+import static org.laurieandthegang.parkshark.service.Validator.VALIDATOR;
+
 @Service
 public class MemberService {
     private final MemberRepository memberRepository;
@@ -22,33 +24,11 @@ public class MemberService {
     }
 
     public MemberDto addMember(CreateMemberDto createMemberDto) {
-        validateRequiredFieldsNotNull(createMemberDto);
+        VALIDATOR.validateRequiredFieldsNotNull(createMemberDto);
 
         Member member = memberMapper.mapper(createMemberDto);
         memberRepository.addMember(member);
         return memberMapper.mapper(member);
 
-    }
-
-    public void validateRequiredFieldsNotNull(CreateMemberDto createMemberDto) {
-        if (createMemberDto.name() == null) {
-            throw new RequiredFieldIsNullException("NAME");
-        } else if (createMemberDto.address().getPostalCode().getNumeralCode() == null) {
-            throw new RequiredFieldIsNullException("ADDRESS - POSTAL CODE - NUMERAL");
-        } else if (createMemberDto.address().getPostalCode().getCityLabel() == null) {
-            throw new RequiredFieldIsNullException("ADDRESS - POSTAL CODE - CITY LABEL");
-        } else if (createMemberDto.address().getStreetName() == null) {
-            throw new RequiredFieldIsNullException("ADDRESS - STREET NAME");
-        } else if (createMemberDto.address().getStreetNumber() == null) {
-            throw new RequiredFieldIsNullException("ADDRESS - STREET NUMBER");
-        } else if (createMemberDto.licensePlate().getLicenseNumber() == null) {
-            throw new RequiredFieldIsNullException("LICENSE PLATE - NUMBER");
-        } else if (createMemberDto.licensePlate().getCountryLabel() == null) {
-            throw new RequiredFieldIsNullException("LICENSE PLATE - COUNTRY LABEL");
-        } else if (createMemberDto.email() == null) {
-            throw new RequiredFieldIsNullException("EMAIL");
-        } else if (createMemberDto.phoneNumber() == null) {
-            throw new RequiredFieldIsNullException("PHONE NUMBER");
-        }
     }
 }
