@@ -21,14 +21,7 @@ public enum Validator {
     private LicensePlateMapper licensePlateMapper;
     @Autowired
     private ContactPersonMapper contactPersonMapper;
-    @Autowired
-    private MemberMapper memberMapper;
-    @Autowired
-    private ParkingLotMapper parkingLotMapper;
-    @Autowired
-    private PostalCodeMapper postalCodeMapper;
-    @Autowired
-    private NameMapper nameMapper;
+
 
 
     public void validateRequiredFieldsNotNull(CreateParkingLotDto createParkingLotDto) {
