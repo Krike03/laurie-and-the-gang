@@ -12,7 +12,7 @@ public class NameMapper {
                 name.getLastName());
     }
 
-    public Name mapper(NameDto nameDto){
+    public Name mapper(NameDto nameDto) {
         return new Name(nameDto.firstName(),
                 nameDto.lastName());
     }
