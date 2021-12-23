@@ -4,7 +4,7 @@ import org.laurieandthegang.parkshark.api.dto.parkinglot.ContactPersonDto;
 import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
 import org.laurieandthegang.parkshark.api.mapper.people.NameMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
--import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Component;
 
 @Component
 public class ContactPersonMapper {
