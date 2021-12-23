@@ -1,8 +1,10 @@
-package org.laurieandthegang.parkshark.api.mapper;
+package org.laurieandthegang.parkshark.api.mapper.people;
 
 import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
 import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
+import org.laurieandthegang.parkshark.api.mapper.address.PostalCodeMapper;
 import org.laurieandthegang.parkshark.domain.people.Member;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +14,13 @@ public class MemberMapper {
     }
 
     public MemberDto mapper(Member member) {
-        return new MemberDto(member.getId(), member.getName(), member.getAddress(), member.getPhoneNumber(), member.getEmail(), member.getLicensePlate(), member.getRegistrationDate());
+        return new MemberDto(member.getId(),
+                member.getName(),
+                member.getAddress(),
+                member.getPhoneNumber(),
+                member.getEmail(),
+                member.getLicensePlate(),
+                member.getRegistrationDate());
     }
 
     public Member mapper(CreateMemberDto createMemberDto) {
@@ -21,6 +29,5 @@ public class MemberMapper {
                 , createMemberDto.phoneNumber(),
                 createMemberDto.email(),
                 createMemberDto.licensePlate());
-
     }
 }

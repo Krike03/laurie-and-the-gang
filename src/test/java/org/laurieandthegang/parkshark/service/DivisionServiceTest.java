@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateDivisionDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.DivisionDto;
-import org.laurieandthegang.parkshark.api.mapper.DivisionMapper;
+import org.laurieandthegang.parkshark.api.mapper.parkinglot.DivisionMapper;
 import org.laurieandthegang.parkshark.domain.division.Division;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;

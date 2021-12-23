@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.mapper;
+package org.laurieandthegang.parkshark.api.mapper.parkinglot;
 
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateDivisionDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.DivisionDto;

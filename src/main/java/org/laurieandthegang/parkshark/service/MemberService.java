@@ -2,7 +2,7 @@ package org.laurieandthegang.parkshark.service;
 
 import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
 import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
-import org.laurieandthegang.parkshark.api.mapper.MemberMapper;
+import org.laurieandthegang.parkshark.api.mapper.people.MemberMapper;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.MemberRepository;
 import org.slf4j.Logger;
