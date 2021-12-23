@@ -8,6 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
@@ -27,5 +29,12 @@ public class MemberController {
     public MemberDto registerNewMember(@RequestBody CreateMemberDto createMemberDto) {
         LOGGER.info("Method call: register new member.");
         return memberService.addMember(createMemberDto);
+    }
+
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    public List<MemberDto> getAllMembers() {
+        LOGGER.info("Method call: getAllMembers");
+        return memberService.getAllMembers();
     }
 }

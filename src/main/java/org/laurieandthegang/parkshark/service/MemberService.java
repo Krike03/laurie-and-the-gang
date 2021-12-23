@@ -13,6 +13,8 @@ import org.springframework.stereotype.Service;
 import org.laurieandthegang.parkshark.domain.people.*;
 
 import java.lang.reflect.Field;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MemberService {
@@ -34,9 +36,18 @@ public class MemberService {
 
     }
 
+    public List<MemberDto> getAllMembers() {
+        return memberRepository
+                .getAllMembers().stream()
+                .map(member -> memberMapper.mapper(member))
+                .collect(Collectors.toList());
+    }
+
     public void validateRequiredFieldsNotNull(CreateMemberDto createMemberDto) {
         if (createMemberDto.name() == null) {
             throw new RequiredFieldIsNullException("NAME");
+        } else if (createMemberDto.address().getPostalCode() == null) {
+            throw new RequiredFieldIsNullException("ADDRESS - POSTAL CODE");
         } else if (createMemberDto.address().getPostalCode().getNumeralCode() == null) {
             throw new RequiredFieldIsNullException("ADDRESS - POSTAL CODE - NUMERAL");
         } else if (createMemberDto.address().getPostalCode().getCityLabel() == null) {

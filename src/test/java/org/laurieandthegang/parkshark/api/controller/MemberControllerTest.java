@@ -1,9 +1,9 @@
 package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
+import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
@@ -12,24 +12,18 @@ import org.laurieandthegang.parkshark.domain.people.Address;
 import org.laurieandthegang.parkshark.domain.people.LicensePlate;
 import org.laurieandthegang.parkshark.domain.people.Name;
 import org.laurieandthegang.parkshark.domain.people.PostalCode;
-import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
-import org.laurieandthegang.parkshark.repository.MemberRepository;
-import org.mockito.internal.matchers.NotNull;
+import org.laurieandthegang.parkshark.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.web.servlet.MockMvc;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.util.List;
+
 import static io.restassured.http.ContentType.JSON;
-import static org.hamcrest.Matchers.containsString;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.springframework.http.HttpStatus.OK;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -41,7 +35,7 @@ class MemberControllerTest {
     private int port;
 
     @Autowired
-    private MemberRepository memberRepository;
+    private MemberService memberService;
 
     private Name name;
     private PostalCode postalCode;
@@ -231,6 +225,56 @@ class MemberControllerTest {
                 .assertThat()
                 .statusCode(HttpStatus.BAD_REQUEST.value())
                 .body("message", Matchers.is("Required field LICENSE PLATE - COUNTRY LABEL was null."));
+    }
+
+    @Test
+    void givenDivisionInDatabase_whenGettingAllDivisions_thenAllDivisionsAreReturned() {
+
+
+        CreateMemberDto memberDto1 = new CreateMemberDto(
+                new Name("First", "Last"),
+                new Address("Sesam", "123", new PostalCode("3000", "Leuven")),
+                "02/8985847",
+                "wtf@wtf.com",
+                new LicensePlate("1-TYR-963", "BE"));
+
+        CreateMemberDto memberDto2 = new CreateMemberDto(
+                new Name("First2", "Last2"),
+                new Address("Sesam", "123", new PostalCode("3000", "Leuven")),
+                "02/8985847",
+                "wtf@wtf.com",
+                new LicensePlate("1-TYR-963", "BE"));
+
+        memberService.addMember(memberDto1);
+        memberService.addMember(memberDto2);
+
+        List<MemberDto> memberDtoList = RestAssured
+                .given()
+                .contentType(JSON)
+//                .header
+                .when()
+                .port(port)
+                .get("/members")
+                .then()
+                .assertThat()
+                .statusCode(OK.value())
+                .extract()
+                .jsonPath().getList(".", MemberDto.class);
+
+        Assertions.assertThat(memberDtoList.get(0).name()).isEqualTo(memberDto1.name());
+        Assertions.assertThat(memberDtoList.get(0).address()).isEqualTo(memberDto1.address());
+        Assertions.assertThat(memberDtoList.get(0).phoneNumber()).isEqualTo(memberDto1.phoneNumber());
+        Assertions.assertThat(memberDtoList.get(0).email()).isEqualTo(memberDto1.email());
+        Assertions.assertThat(memberDtoList.get(0).phoneNumber()).isEqualTo(memberDto1.phoneNumber());
+        Assertions.assertThat(memberDtoList.get(0).licensePlate()).isEqualTo(memberDto1.licensePlate());
+
+        Assertions.assertThat(memberDtoList.get(1).name()).isEqualTo(memberDto2.name());
+        Assertions.assertThat(memberDtoList.get(1).address()).isEqualTo(memberDto2.address());
+        Assertions.assertThat(memberDtoList.get(1).phoneNumber()).isEqualTo(memberDto2.phoneNumber());
+        Assertions.assertThat(memberDtoList.get(1).email()).isEqualTo(memberDto2.email());
+        Assertions.assertThat(memberDtoList.get(1).phoneNumber()).isEqualTo(memberDto2.phoneNumber());
+        Assertions.assertThat(memberDtoList.get(1).licensePlate()).isEqualTo(memberDto2.licensePlate());
+
     }
 
 

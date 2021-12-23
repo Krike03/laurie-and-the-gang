@@ -8,6 +8,8 @@ import javax.transaction.Transactional;
 
 import org.laurieandthegang.parkshark.domain.people.*;
 
+import java.util.List;
+
 @Repository
 public class MemberRepository {
 
@@ -17,5 +19,10 @@ public class MemberRepository {
     @Transactional
     public void addMember(Member member){
         entityManager.persist(member);
+    }
+
+    public List<Member> getAllMembers() {
+        return entityManager.createQuery("select m from Member m", Member.class)
+                .getResultList();
     }
 }
