@@ -27,7 +27,6 @@ import java.util.List;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.OK;
-import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -263,18 +262,18 @@ class MemberControllerTest {
 
 
         CreateMemberDto memberDto1 = new CreateMemberDto(
-                new Name("First", "Last"),
-                new Address("Sesam", "123", new PostalCode("3000", "Leuven")),
+                nameMapper.mapper(new Name("First", "Last")),
+                addressMapper.mapper(new Address("Sesam", "123", new PostalCode("3000", "Leuven"))),
                 "02/8985847",
                 "wtf@wtf.com",
-                new LicensePlate("1-TYR-963", "BE"));
+                licensePlateMapper.mapper(new LicensePlate("1-TYR-963", "BE")));
 
         CreateMemberDto memberDto2 = new CreateMemberDto(
-                new Name("First2", "Last2"),
-                new Address("Sesam", "123", new PostalCode("3000", "Leuven")),
+                nameMapper.mapper(new Name("First2", "Last2")),
+                addressMapper.mapper(new Address("Sesam", "123", new PostalCode("3000", "Leuven"))),
                 "02/8985847",
                 "wtf@wtf.com",
-                new LicensePlate("1-TYR-963", "BE"));
+                licensePlateMapper.mapper(new LicensePlate("1-TYR-963", "BE")));
 
         memberService.addMember(memberDto1);
         memberService.addMember(memberDto2);
