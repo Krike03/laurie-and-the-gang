@@ -73,19 +73,4 @@ public class ContactPerson {
         ContactPerson that = (ContactPerson) o;
         return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(mobilePhoneNumber, that.mobilePhoneNumber) && Objects.equals(telephoneNumber, that.telephoneNumber);
     }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, mobilePhoneNumber, telephoneNumber);
-    }
-
-    @Override
-    public String toString() {
-        return "ContactPerson{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                '}';
-    }
 }

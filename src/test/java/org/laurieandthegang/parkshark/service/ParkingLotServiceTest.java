@@ -69,7 +69,7 @@ public class ParkingLotServiceTest {
     }
 
     @Test
-    void name() {
+    void givenAMock_whenRegisteringAParkingLot_thenHaveTheParkingLotAdded() {
         //GIVEN
         ParkingLot parkingLot = parkingLotMapper.mapper(createParkingLotDto);
         Mockito.doNothing().when(mockParkingLotRepository).addParkingLot(any());
