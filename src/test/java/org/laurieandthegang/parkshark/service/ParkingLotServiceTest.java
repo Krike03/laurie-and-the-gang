@@ -1,10 +1,12 @@
 package org.laurieandthegang.parkshark.service;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateParkingLotDto;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.ParkingLotDto;
+import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
+import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.Category;
 import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
@@ -25,8 +27,15 @@ public class ParkingLotServiceTest {
 
     @Autowired
     private ParkingLotService parkingLotService;
+
     @Autowired
     private ParkingLotMapper parkingLotMapper;
+
+    @Autowired
+    private ContactPersonMapper contactPersonMapper;
+
+    @Autowired
+    private AddressMapper addressMapper;
 
     private ContactPerson contactPerson;
     private PostalCode postalCode;
@@ -35,9 +44,10 @@ public class ParkingLotServiceTest {
 
 
 
-    @BeforeEach
+    @BeforeAll
     void setUp() {
         mockParkingLotRepository = Mockito.mock(ParkingLotRepository.class);
+
         Address contactPersonsAddress = new Address("Sesams", "123", new PostalCode("123", "BE"));
         contactPerson = new ContactPerson(new Name("Tims", "second mistake"), "tim@2ndmistake.org", "2- 1 - 11 en de rest zoekte zelf", null, contactPersonsAddress);
         postalCode = new PostalCode("9000", "Gent");
@@ -45,7 +55,13 @@ public class ParkingLotServiceTest {
 
 
 
-        createParkingLotDto = new CreateParkingLotDto("parking name", Category.UNDERGROUND, 100, contactPerson, contactPersonsAddress, 1.12);
+        createParkingLotDto = new CreateParkingLotDto(
+                "parking name",
+                Category.UNDERGROUND,
+                100,
+                contactPersonMapper.mapper(contactPerson),
+                addressMapper.mapper(contactPersonsAddress),
+                1.12);
     }
 
     @Test
