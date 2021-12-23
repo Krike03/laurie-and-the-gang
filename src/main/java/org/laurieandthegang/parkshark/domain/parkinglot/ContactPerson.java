@@ -43,6 +43,18 @@ public class ContactPerson {
         return telephoneNumber;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
     public ContactPerson(Name name, String email, String mobilePhoneNumber, String telephoneNumber, Address address) {
         this.name = name;
         this.email = email;
