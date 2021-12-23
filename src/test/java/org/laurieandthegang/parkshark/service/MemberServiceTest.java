@@ -3,9 +3,15 @@ package org.laurieandthegang.parkshark.service;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
-import org.laurieandthegang.parkshark.api.dto.MemberDto;
-import org.laurieandthegang.parkshark.api.mapper.MemberMapper;
+import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
+import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
+import org.laurieandthegang.parkshark.api.mapper.address.PostalCodeMapper;
+import org.laurieandthegang.parkshark.api.mapper.parkinglot.ContactPersonMapper;
+import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
+import org.laurieandthegang.parkshark.api.mapper.people.LicensePlateMapper;
+import org.laurieandthegang.parkshark.api.mapper.people.MemberMapper;
+import org.laurieandthegang.parkshark.api.mapper.people.NameMapper;
 import org.laurieandthegang.parkshark.domain.people.*;
 import org.laurieandthegang.parkshark.exception.RequiredFieldIsNullException;
 import org.laurieandthegang.parkshark.repository.MemberRepository;
@@ -20,12 +26,29 @@ class MemberServiceTest {
     private MemberRepository mockMemberRepository;
     private MemberService memberService;
     private MemberMapper memberMapper;
+    private Validator validator;
+
+    private ParkingLotMapper parkingLotMapper;
+    private ContactPersonMapper contactPersonMapper;
+    private AddressMapper addressMapper;
+    private PostalCodeMapper postalCodeMapper;
+    private NameMapper nameMapper;
+    private LicensePlateMapper licensePlateMapper;
 
     @BeforeEach
     void setUp() {
         mockMemberRepository = Mockito.mock(MemberRepository.class);
-        memberMapper = new MemberMapper();
-        memberService = new MemberService(mockMemberRepository, memberMapper);
+
+        nameMapper = new NameMapper();
+        licensePlateMapper = new LicensePlateMapper();
+        postalCodeMapper = new PostalCodeMapper();
+        addressMapper = new AddressMapper(postalCodeMapper);
+        contactPersonMapper = new ContactPersonMapper(nameMapper, addressMapper);
+        parkingLotMapper = new ParkingLotMapper(contactPersonMapper, addressMapper);
+
+        validator = new Validator(addressMapper,
+                licensePlateMapper,
+                contactPersonMapper);
     }
 
     @Test
@@ -65,12 +88,12 @@ class MemberServiceTest {
         //WHEN
         CreateMemberDto createMemberDto = new CreateMemberDto(
                 null,
-                new Address("Sesam", "123", new PostalCode("3000", "Leuven")),
+                addressMapper.mapper(new Address("Sesam", "123", new PostalCode("3000", "Leuven"))),
                 "02/8985847",
                 "wtf@wtf.com",
-                new LicensePlate("1-TYR-963", "BE"));
+                licensePlateMapper.mapper(new LicensePlate("1-TYR-963", "BE")));
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> memberService.addMember(createMemberDto));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(() -> memberService.addMember(createMemberDto));
     }
 
     @Test
@@ -78,13 +101,13 @@ class MemberServiceTest {
         //GIVEN
         //WHEN
         CreateMemberDto createMemberDto = new CreateMemberDto(
-                new Name("First","Last"),
-                new Address("Sesam", "123",null),
+                nameMapper.mapper(new Name("First", "Last")),
+                addressMapper.mapper(new Address("Sesam", "123", null)),
                 "02/8985847",
                 "wtf@wtf.com",
-                new LicensePlate("1-TYR-963", "BE"));
+                licensePlateMapper.mapper(new LicensePlate("1-TYR-963", "BE")));
         //THEN
-        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(()-> memberService.addMember(createMemberDto));
+        Assertions.assertThatExceptionOfType(RequiredFieldIsNullException.class).isThrownBy(() -> memberService.addMember(createMemberDto));
     }
 
 }

@@ -6,8 +6,11 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
-import org.laurieandthegang.parkshark.api.dto.MemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
+import org.laurieandthegang.parkshark.api.mapper.address.AddressMapper;
+import org.laurieandthegang.parkshark.api.mapper.people.LicensePlateMapper;
+import org.laurieandthegang.parkshark.api.mapper.people.NameMapper;
 import org.laurieandthegang.parkshark.domain.people.Address;
 import org.laurieandthegang.parkshark.domain.people.LicensePlate;
 import org.laurieandthegang.parkshark.domain.people.Name;
@@ -24,6 +27,7 @@ import java.util.List;
 import static io.restassured.http.ContentType.JSON;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.http.HttpStatus.OK;
+import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -35,6 +39,13 @@ class MemberControllerTest {
     private int port;
 
     @Autowired
+    private NameMapper nameMapper;
+
+    @Autowired
+    private AddressMapper addressMapper;
+
+    @Autowired
+    private LicensePlateMapper licensePlateMapper;
     private MemberService memberService;
 
     private Name name;
@@ -52,7 +63,12 @@ class MemberControllerTest {
 
     @Test
     void givenMemberToCreate_whenRegisteringMemberCorrectly_thenAddMember() {
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, address, "557", "@number", licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(
+                nameMapper.mapper(name),
+                addressMapper.mapper(address),
+                "557",
+                "@number",
+                licensePlateMapper.mapper(licensePlate));
 
         MemberDto memberDto = RestAssured
                 .given()
@@ -78,7 +94,12 @@ class MemberControllerTest {
     @Test
     void givenMemberToCreate_whenRegisteringStreetNameIncorrectly_thenThrowError() {
         Address faultyAddress = new Address(null, "jhfg", postalCode);
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, faultyAddress, "557", "@number", licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(
+                nameMapper.mapper(name),
+                addressMapper.mapper(faultyAddress),
+                "557",
+                "@number",
+                licensePlateMapper.mapper(licensePlate));
 
         RestAssured
                 .given()
@@ -97,7 +118,11 @@ class MemberControllerTest {
     @Test
     void givenMemberToCreate_whenRegisteringStreetNumberIncorrectly_thenThrowError() {
         Address faultyAddress = new Address("null xd", null, postalCode);
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, faultyAddress, "557", "@number", licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(
+                nameMapper.mapper(name),
+                addressMapper.mapper(faultyAddress),
+                "557", "@number",
+                licensePlateMapper.mapper(licensePlate));
         RestAssured
                 .given()
                 .body(createMemberDto)
@@ -117,7 +142,8 @@ class MemberControllerTest {
         PostalCode faultyPostal = new PostalCode(null, "doizfh");
         Address faultyAddress = new Address("null xd", "Gent", faultyPostal);
 
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, faultyAddress, "557", "@number", licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(nameMapper.mapper(name),
+                addressMapper.mapper(faultyAddress), "557", "@number", licensePlateMapper.mapper(licensePlate));
 
         RestAssured
                 .given()
@@ -138,7 +164,8 @@ class MemberControllerTest {
         PostalCode faultyPostal = new PostalCode("null", null);
         Address faultyAddress = new Address("null xd", "Gent", faultyPostal);
 
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, faultyAddress, "557", "@number", licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(nameMapper.mapper(name),
+                addressMapper.mapper(faultyAddress), "557", "@number", licensePlateMapper.mapper(licensePlate));
         RestAssured
                 .given()
                 .body(createMemberDto)
@@ -155,7 +182,8 @@ class MemberControllerTest {
 
     @Test
     void givenMemberToCreate_whenRegisteringPhoneNumberIncorrectly_thenThrowError() {
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, address, null, "@number", licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(nameMapper.mapper(name),
+                addressMapper.mapper(address), null, "@number", licensePlateMapper.mapper(licensePlate));
 
         RestAssured
                 .given()
@@ -173,7 +201,8 @@ class MemberControllerTest {
 
     @Test
     void givenMemberToCreate_whenRegisteringEmailIncorrectly_thenThrowError() {
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, address, "557", null, licensePlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(nameMapper.mapper(name),
+                addressMapper.mapper(address), "557", null, licensePlateMapper.mapper(licensePlate));
 
         RestAssured
                 .given()
@@ -192,7 +221,8 @@ class MemberControllerTest {
     @Test
     void givenMemberToCreate_whenRegisteringLicenseNumberIncorrectly_thenThrowError() {
         LicensePlate faultyPlate = new LicensePlate(null, "null");
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, address, "557", "@number", faultyPlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(nameMapper.mapper(name),
+                addressMapper.mapper(address), "557", "@number", licensePlateMapper.mapper(faultyPlate));
 
         RestAssured
                 .given()
@@ -211,7 +241,8 @@ class MemberControllerTest {
     @Test
     void givenMemberToCreate_whenRegisteringLicenseLabelIncorrectly_thenThrowError() {
         LicensePlate faultyPlate = new LicensePlate("null", null);
-        CreateMemberDto createMemberDto = new CreateMemberDto(name, address, "557", "@number", faultyPlate);
+        CreateMemberDto createMemberDto = new CreateMemberDto(nameMapper.mapper(name),
+                addressMapper.mapper(address), "557", "@number", licensePlateMapper.mapper(faultyPlate));
 
         RestAssured
                 .given()

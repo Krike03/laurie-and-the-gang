@@ -1,8 +1,5 @@
 package org.laurieandthegang.parkshark.domain.people;
 
-import com.sun.istack.NotNull;
-import org.springframework.lang.NonNull;
-import org.springframework.lang.NonNullFields;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -14,10 +11,10 @@ public class Address {
     private String streetName;
 
     @Column(name = "STREET_NUMBER", nullable = false)
-    private String streetNumber; //could be 11A
+    private String streetNumber;
 
     @Embedded
-    private PostalCode postalCode; // could be 9000B
+    private PostalCode postalCode;
 
 
     private Address() {

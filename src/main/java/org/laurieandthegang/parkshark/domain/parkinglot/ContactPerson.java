@@ -10,7 +10,8 @@ import java.util.Objects;
 @Table(name = "contact_person")
 public class ContactPerson {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @SequenceGenerator(name = "CONTACT_PERSON_SEQ", sequenceName = "contact_person_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTACT_PERSON_SEQ")
     @Column(name = "id", nullable = false)
     private Integer id;
 
@@ -42,26 +43,34 @@ public class ContactPerson {
         return telephoneNumber;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public Name getName() {
+        return name;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public ContactPerson(Name name, String email, String mobilePhoneNumber, String telephoneNumber, Address address) {
+        this.name = name;
+        this.email = email;
+        this.mobilePhoneNumber = mobilePhoneNumber;
+        this.telephoneNumber = telephoneNumber;
+        this.address = address;
+    }
+
+    private ContactPerson() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ContactPerson that = (ContactPerson) o;
         return Objects.equals(id, that.id) && Objects.equals(email, that.email) && Objects.equals(mobilePhoneNumber, that.mobilePhoneNumber) && Objects.equals(telephoneNumber, that.telephoneNumber);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, email, mobilePhoneNumber, telephoneNumber);
-    }
-
-    @Override
-    public String toString() {
-        return "ContactPerson{" +
-                "id=" + id +
-                ", email='" + email + '\'' +
-                ", mobilePhoneNumber='" + mobilePhoneNumber + '\'' +
-                ", telephoneNumber='" + telephoneNumber + '\'' +
-                '}';
     }
 }

@@ -1,7 +1,7 @@
 package org.laurieandthegang.parkshark.api.controller;
 
-import org.laurieandthegang.parkshark.api.dto.CreateMemberDto;
-import org.laurieandthegang.parkshark.api.dto.MemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.CreateMemberDto;
+import org.laurieandthegang.parkshark.api.dto.people.MemberDto;
 import org.laurieandthegang.parkshark.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

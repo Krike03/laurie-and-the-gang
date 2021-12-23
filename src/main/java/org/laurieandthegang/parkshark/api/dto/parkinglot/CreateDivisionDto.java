@@ -1,4 +1,4 @@
-package org.laurieandthegang.parkshark.api.dto;
+package org.laurieandthegang.parkshark.api.dto.parkinglot;
 
 import com.sun.istack.NotNull;
 

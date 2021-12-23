@@ -1,6 +1,5 @@
 package org.laurieandthegang.parkshark.repository;
 
-import org.laurieandthegang.parkshark.api.dto.DivisionDto;
 import org.laurieandthegang.parkshark.domain.division.Division;
 import org.springframework.stereotype.Repository;
 

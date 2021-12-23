@@ -2,11 +2,10 @@ package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.laurieandthegang.parkshark.api.dto.CreateDivisionDto;
-import org.laurieandthegang.parkshark.api.dto.DivisionDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateDivisionDto;
+import org.laurieandthegang.parkshark.api.dto.parkinglot.DivisionDto;
 import org.laurieandthegang.parkshark.repository.DivisionRepository;
 import org.laurieandthegang.parkshark.service.DivisionService;
 import org.springframework.beans.factory.annotation.Autowired;
