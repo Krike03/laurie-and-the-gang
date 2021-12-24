@@ -66,8 +66,7 @@ class DivisionControllerTest {
 
         DivisionDto divisionDto = RestAssured
                 .given()
-                .auth()
-                .oauth2(response)
+                .header("Authorization", "Bearer " + response)
                 .body(createDivisionDTO)
                 .accept(JSON)
                 .contentType(JSON)
@@ -98,7 +97,7 @@ class DivisionControllerTest {
         List<DivisionDto> divisionDtoList = RestAssured
                 .given()
                 .contentType(JSON)
-//                .header
+                .header("Authorization", "Bearer " + response)
                 .when()
                 .port(port)
                 .get("/divisions")
@@ -128,7 +127,7 @@ class DivisionControllerTest {
         List<DivisionDto> divisionDtoList = RestAssured
                 .given()
                 .contentType(JSON)
-//                .header
+                .header("Authorization", "Bearer " + response)
                 .when()
                 .port(port)
                 .get("/divisions")

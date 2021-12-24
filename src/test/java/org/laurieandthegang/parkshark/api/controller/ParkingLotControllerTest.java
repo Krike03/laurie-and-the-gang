@@ -13,8 +13,6 @@ import org.laurieandthegang.parkshark.domain.parkinglot.ContactPerson;
 import org.laurieandthegang.parkshark.domain.people.Address;
 import org.laurieandthegang.parkshark.domain.people.Name;
 import org.laurieandthegang.parkshark.domain.people.PostalCode;
-import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
-import org.laurieandthegang.parkshark.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
@@ -33,7 +31,7 @@ public class ParkingLotControllerTest {
     private int port;
 
     private String url;
-    private String response;
+    private String keyCloackToken;
 
     @Autowired
     private ContactPersonMapper contactPersonMapper;
@@ -76,7 +74,7 @@ public class ParkingLotControllerTest {
 
         url = "https://keycloak.switchfully.com/auth/realms/java-oct-2021/protocol/openid-connect/token";
 
-        response = RestAssured
+        keyCloackToken = RestAssured
                 .given()
                 .contentType("application/x-www-form-urlencoded; charset=utf-8")
                 .formParam("grant_type", "password")
@@ -99,6 +97,8 @@ public class ParkingLotControllerTest {
         //WHEN
         ParkingLotDto parkingLotDto = RestAssured
                 .given()
+                .auth()
+                .oauth2(keyCloackToken)
                 .body(createParkingLotDto)
                 .accept(JSON)
                 .contentType(JSON)
