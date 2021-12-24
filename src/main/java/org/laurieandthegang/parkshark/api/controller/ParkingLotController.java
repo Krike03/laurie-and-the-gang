@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class ParkingLotController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADD_PARKING_LOT')")
     public ParkingLotDto registerParkingLot(@RequestBody CreateParkingLotDto createParkingLotDto) {
         LOGGER.info("Method call: registered new ParkingLot.");
         return parkingLotService.addParkingLot(createParkingLotDto);

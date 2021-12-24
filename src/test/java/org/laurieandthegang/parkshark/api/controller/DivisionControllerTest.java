@@ -2,6 +2,7 @@ package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.laurieandthegang.parkshark.api.dto.parkinglot.CreateDivisionDto;
@@ -32,10 +33,32 @@ class DivisionControllerTest {
     @LocalServerPort
     private int port;
 
+    private String url;
+    private String response;
+
     @Autowired
     private DivisionRepository divisionRepository;
     @Autowired
     private DivisionService divisionService;
+
+    @BeforeAll
+    void setUp(){
+        url = "https://keycloak.switchfully.com/auth/realms/java-oct-2021/protocol/openid-connect/token";
+
+        response = RestAssured
+                .given()
+                .contentType("application/x-www-form-urlencoded; charset=utf-8")
+                .formParam("grant_type", "password")
+                .formParam("username", "manager1")
+                .formParam("password", "password")
+                .formParam("client_id", "parkshark")
+                .when()
+                .post(url)
+                .then()
+                .extract()
+                .path("access_token")
+                .toString();
+    }
 
     @Test
     void givenDivisionToCreate_WhenRegisterDivisionCorrectly_thenAddDivision() {
@@ -43,6 +66,7 @@ class DivisionControllerTest {
 
         DivisionDto divisionDto = RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createDivisionDTO)
                 .accept(JSON)
                 .contentType(JSON)
@@ -73,7 +97,7 @@ class DivisionControllerTest {
         List<DivisionDto> divisionDtoList = RestAssured
                 .given()
                 .contentType(JSON)
-//                .header
+                .header("Authorization", "Bearer " + response)
                 .when()
                 .port(port)
                 .get("/divisions")
@@ -103,7 +127,7 @@ class DivisionControllerTest {
         List<DivisionDto> divisionDtoList = RestAssured
                 .given()
                 .contentType(JSON)
-//                .header
+                .header("Authorization", "Bearer " + response)
                 .when()
                 .port(port)
                 .get("/divisions")

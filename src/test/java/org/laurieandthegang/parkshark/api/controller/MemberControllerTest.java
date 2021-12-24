@@ -1,6 +1,9 @@
 package org.laurieandthegang.parkshark.api.controller;
 
 import io.restassured.RestAssured;
+import io.restassured.authentication.OAuthSignature;
+import io.restassured.http.ContentType;
+import io.restassured.parsing.Parser;
 import org.assertj.core.api.Assertions;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeAll;
@@ -37,6 +40,9 @@ class MemberControllerTest {
     @LocalServerPort
     private int port;
 
+    private String response;
+    private String url;
+
     @Autowired
     private NameMapper nameMapper;
 
@@ -60,6 +66,21 @@ class MemberControllerTest {
         postalCode = new PostalCode("toktg", "oghf");
         address = new Address("timtom", "tomtim", postalCode);
         licensePlate = new LicensePlate("shfdug", "België.");
+        url = "https://keycloak.switchfully.com/auth/realms/java-oct-2021/protocol/openid-connect/token";
+
+        response = RestAssured
+                .given()
+                .contentType("application/x-www-form-urlencoded; charset=utf-8")
+                .formParam("grant_type", "password")
+                .formParam("username", "manager1")
+                .formParam("password", "password")
+                .formParam("client_id", "parkshark")
+                .when()
+                .post(url)
+                .then()
+                .extract()
+                .path("access_token")
+                .toString();
     }
 
     @Test
@@ -70,20 +91,21 @@ class MemberControllerTest {
                 "557",
                 "@number",
                 licensePlateMapper.mapper(licensePlate));
-
+        RestAssured.defaultParser = Parser.JSON;
         MemberDto memberDto = RestAssured
                 .given()
-                .body(createMemberDto)
-                .accept(JSON)
-                .contentType(JSON)
+                    .auth().oauth2(response)
+                    .body(createMemberDto)
+                    .accept(JSON)
+                    .contentType(JSON)
                 .when()
-                .port(port)
-                .post("/members")
+                    .port(port)
+                    .post("/members")
                 .then()
-                .assertThat()
-                .statusCode(HttpStatus.CREATED.value())
-                .extract()
-                .as(MemberDto.class);
+                    .assertThat()
+                    .statusCode(HttpStatus.CREATED.value())
+                    .extract()
+                    .as(MemberDto.class);
 
         assertThat(memberDto.name()).isEqualTo(createMemberDto.name());
         assertThat(memberDto.address()).isEqualTo(createMemberDto.address());
@@ -104,6 +126,7 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -126,6 +149,7 @@ class MemberControllerTest {
                 licensePlateMapper.mapper(licensePlate));
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -148,6 +172,8 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .auth()
+                .oauth2(response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -169,6 +195,7 @@ class MemberControllerTest {
                 addressMapper.mapper(faultyAddress), "557", "@number", licensePlateMapper.mapper(licensePlate));
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -188,6 +215,7 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -207,6 +235,7 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -227,6 +256,7 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -247,6 +277,7 @@ class MemberControllerTest {
 
         RestAssured
                 .given()
+                .header("Authorization", "Bearer " + response)
                 .body(createMemberDto)
                 .accept(JSON)
                 .contentType(JSON)
@@ -283,7 +314,7 @@ class MemberControllerTest {
         List<MemberDto> memberDtoList = RestAssured
                 .given()
                 .contentType(JSON)
-//                .header
+                .header("Authorization", "Bearer " + response)
                 .when()
                 .port(port)
                 .get("/members")
@@ -306,8 +337,5 @@ class MemberControllerTest {
         Assertions.assertThat(memberDtoList.get(1).email()).isEqualTo(memberDto2.email());
         Assertions.assertThat(memberDtoList.get(1).phoneNumber()).isEqualTo(memberDto2.phoneNumber());
         Assertions.assertThat(memberDtoList.get(1).licensePlate()).isEqualTo(memberDto2.licensePlate());
-
     }
-
-
 }

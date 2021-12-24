@@ -6,6 +6,7 @@ import org.laurieandthegang.parkshark.service.MemberService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class MemberController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasAuthority('ADD_DIVISION')")
     public MemberDto registerNewMember(@RequestBody CreateMemberDto createMemberDto) {
         LOGGER.info("Method call: register new member.");
         return memberService.addMember(createMemberDto);
@@ -33,6 +35,7 @@ public class MemberController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('ADD_DIVISION')")
     public List<MemberDto> getAllMembers() {
         LOGGER.info("Method call: getAllMembers");
         return memberService.getAllMembers();
