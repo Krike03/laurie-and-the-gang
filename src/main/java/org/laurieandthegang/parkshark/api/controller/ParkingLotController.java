@@ -37,6 +37,7 @@ public class ParkingLotController {
 
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasAuthority('GET_PARKING_LOTS')")
     public List<RestrictedParkingLotDto> getAllParkingLots(){
         LOGGER.info("Method call: get all parking lots");
         return parkingLotService.getAllParkingLots();
