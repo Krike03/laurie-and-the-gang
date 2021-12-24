@@ -6,20 +6,15 @@ import org.laurieandthegang.parkshark.api.dto.parkinglot.RestrictedParkingLotDto
 import org.laurieandthegang.parkshark.api.mapper.parkinglot.ParkingLotMapper;
 import org.laurieandthegang.parkshark.domain.parkinglot.ParkingLot;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class ParkingLotService {
     private final ParkingLotRepository parkingLotRepository;
-    private static final Logger LOGGER = LoggerFactory.getLogger(MemberService.class); // <- delete if never used in the future
     private final ParkingLotMapper parkingLotMapper;
     private final Validator validator;
 
@@ -38,7 +33,7 @@ public class ParkingLotService {
         return parkingLotMapper.mapper(parkingLot);
     }
 
-    public List<RestrictedParkingLotDto> getAllParkingLots(){
+    public List<RestrictedParkingLotDto> getAllParkingLots() {
         return parkingLotRepository.getAllParkingLots().stream()
                 .map(parkingLotMapper::mapEntityToTheRestrictedDto)
                 .collect(Collectors.toList());

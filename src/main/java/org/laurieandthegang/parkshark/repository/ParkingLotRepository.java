@@ -18,6 +18,7 @@ public class ParkingLotRepository {
         entityManager.persist(parkingLot);
     }
 
+
     public List<ParkingLot> getAllParkingLots(){
         return entityManager.createQuery("select p from ParkingLot p", ParkingLot.class).getResultList();
     }
