@@ -19,11 +19,14 @@ import org.laurieandthegang.parkshark.domain.people.PostalCode;
 import org.laurieandthegang.parkshark.repository.ParkingLotRepository;
 import org.laurieandthegang.parkshark.service.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 import static io.restassured.http.ContentType.JSON;
@@ -33,8 +36,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 @ActiveProfiles("test")
-//@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD) <<--- why?
-//@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
+@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_EACH_TEST_METHOD)
+@AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class ParkingLotControllerTest {
     @LocalServerPort
     private int port;
@@ -44,9 +47,13 @@ public class ParkingLotControllerTest {
 
     @Autowired
     private ContactPersonMapper contactPersonMapper;
+    @Autowired
     private AddressMapper addressMapper;
+    @Autowired
     private ParkingLotService parkingLotService;
+    @Autowired
     private ParkingLotMapper parkingLotMapper;
+    @Autowired
     private ParkingLotRepository parkingLotRepository;
 
 
@@ -54,17 +61,6 @@ public class ParkingLotControllerTest {
     private PostalCode postalCode;
     private Address address;
     private CreateParkingLotDto createParkingLotDto;
-
-    @Autowired
-    public ParkingLotControllerTest(ContactPersonMapper contactPersonMapper, AddressMapper addressMapper, ParkingLotService parkingLotService, ParkingLotMapper parkingLotMapper, ParkingLotRepository parkingLotRepository) {
-        this.contactPersonMapper = contactPersonMapper;
-        this.addressMapper = addressMapper;
-        this.parkingLotService = parkingLotService;
-        this.parkingLotMapper = parkingLotMapper;
-        this.parkingLotRepository = parkingLotRepository;
-    }
-
-
 
     @BeforeAll
     void setUp() {
